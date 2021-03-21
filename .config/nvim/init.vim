@@ -4,9 +4,8 @@ Plug 'alvan/vim-closetag'
 Plug 'Yggdroot/indentLine'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'romgrk/doom-one.vim'
+Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
 
-" hexokinase temporarily disabled because of issues with truecolor
-" Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
 " Plug 'vim-airline/vim-airline'
 " Plug 'dracula/vim', { 'as': 'dracula' }
 " Plug 'sts10/vim-pink-moon'
