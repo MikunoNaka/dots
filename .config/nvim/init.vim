@@ -1,11 +1,13 @@
-call plug#begin('~/local/share/nvim/plugged')
-
-" Plug 'vim-airline/vim-airline'
+call plug#begin('~/local/share/nvim/plugged') 
 Plug 'itchyny/lightline.vim'
 Plug 'alvan/vim-closetag'
 Plug 'Yggdroot/indentLine'
-Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'romgrk/doom-one.vim'
+
+" hexokinase temporarily disabled because of issues with truecolor
+" Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
+" Plug 'vim-airline/vim-airline'
 " Plug 'dracula/vim', { 'as': 'dracula' }
 " Plug 'sts10/vim-pink-moon'
 
@@ -39,17 +41,26 @@ let g:coc_global_extentions = [
   \ 'coc-html',
   \ ]
 
-" enabling the theme
-" colorscheme dracula
-
 " line numbers
-:set number
-:set nu
+set number
+set nu
+
+" colorscheme config
+colorscheme doom-one
+set termguicolors
+syntax enable
 
 " remove vim status because lightline replaces it
 set noshowmode
 
 " lightline config
+" colorscheme wombat for lightline
 let g:lightline = {
-      \ 'colorscheme': 'wombat',
+      \ 'colorscheme': 'darcula'
       \ }
+
+" hexokinase config
+let g:Hexokinase_highlighters = ['virtual']
+
+" colors and theming (copied from DT's config)
+highlight LineNr           ctermfg=1    ctermbg=none    cterm=none

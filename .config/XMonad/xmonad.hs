@@ -341,11 +341,11 @@ myKeys = [
 myMouseBindings = [((altMask, 2), \w -> kill1)
          , ((altMask, 1), \w -> spawn "pcmanfm")
          , ((altMask, 3), \w -> spawn "konqueror")
-         , ((altMask, 4), \w -> prevWS)
-         , ((altMask, 5), \w -> nextWS)
-         , ((myModMask, 2), \w -> spawn myVolMute)
-         , ((myModMask, 4), \w -> spawn myVolDown)
-         , ((myModMask, 5), \w -> spawn myVolUp)
+         , ((altMask, 2), \w -> spawn myVolMute)
+         , ((altMask, 4), \w -> spawn myVolDown)
+         , ((altMask, 5), \w -> spawn myVolUp)
+         , ((myModMask, 4), \w -> prevWS)
+         , ((myModMask, 5), \w -> nextWS)
          ]
 
 -- tabs config
