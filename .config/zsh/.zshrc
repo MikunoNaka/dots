@@ -49,7 +49,7 @@ alias gp='git push'
 alias gcl='git clone'
 
 # git bare
-alias dots='git --git-dir=$HOME/dotfiles/ --work-tree=$HOME'
+alias dots='git --git-dir=$HOME/.dots/ --work-tree=$HOME'
 
 # ssh
 alias ssh-k='eval $(ssh-agent)&& ssh-add /home/zt/.ssh/kalawati_git_key'
