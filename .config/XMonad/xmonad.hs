@@ -49,7 +49,7 @@ import XMonad.Hooks.DynamicLog
 
 -- utilities
 import XMonad.Util.SpawnOnce
-import XMonad.Util.EZConfig (additionalKeys)
+import XMonad.Util.EZConfig
 import XMonad.Util.Cursor
 import XMonad.Util.Paste
 import XMonad.Util.Run
@@ -211,10 +211,11 @@ myScratchpads = [
 -- keybindings
 myKeys = [
          ((myModMask, xK_Return), spawn (myTerminal))
-         , ((myModMask .|. shiftMask, xK_p), spawn (myLauncher))
+         , ((myModMask .|. shiftMask, xK_p), spawn (myLauncher)) -- Doesn't work
 	 , ((myModMask .|. shiftMask, xK_Return), spawn (myScreenshot))
 	 , ((myModMask, xK_q), spawn (myLockscreen))
-	 , ((myModMask, xK_c), spawn (myColorPicker))
+	 , ((myModMask, xK_c), spawn (myColorPicker)) -- Doesn't work
+	 , ((myModMask, xK_n), spawn ("dunstctl close-all"))
 
          , ((altMask, xK_w), kill1)
          , ((altMask .|. shiftMask, xK_k), kill1)
@@ -234,7 +235,7 @@ myKeys = [
 	
 	 -- launch/copy apps
          , ((myModMask .|. shiftMask, xK_o), runOrCopy "pcmanfm" (className =? "Pcmanfm"))
-         , ((myModMask, xK_i), runOrCopy "brave" (className =? "Brave-browser"))
+         , ((myModMask, xK_i), runOrCopy "firefox" (className =? "Firefox"))
          , ((myModMask, xK_m), runOrCopy "vlc" (className =? "vlc"))
 
          -- volume
@@ -335,7 +336,17 @@ myKeys = [
          ((myModMask, xK_v), windows copyToAll)  -- make window visible on all screens
          , ((myModMask .|. shiftMask, xK_v), killAllOtherCopies)
 	 ]
-
+-- mouse keybindings
+-- 1, 2, 3 = left, middle, right
+myMouseBindings = [((altMask, 2), \w -> kill1)
+         , ((altMask, 1), \w -> spawn "pcmanfm")
+         , ((altMask, 3), \w -> spawn "konqueror")
+         , ((altMask, 4), \w -> prevWS)
+         , ((altMask, 5), \w -> nextWS)
+         , ((myModMask, 2), \w -> spawn myVolMute)
+         , ((myModMask, 4), \w -> spawn myVolDown)
+         , ((myModMask, 5), \w -> spawn myVolUp)
+         ]
 
 -- tabs config
 myTabTheme = def { fontName            = "roboto"
@@ -409,11 +420,11 @@ main = do
   workspaces         = myWorkspaces,
   normalBorderColor  = nBorder,
   focusedBorderColor = fBorder,
-  -- mouseBindings      = myMouseBindings,
+  -- mouseBindings      = additionalMouseBindings myMouseBindings,
   layoutHook         = myLayoutHook,
   manageHook         = namedScratchpadManageHook myScratchpads <+> fullscreenManageHook, 
   handleEventHook    = fullscreenEventHook,
   -- logHook = dynamicLogWithPP (myLemonbarPP dbus),
   logHook            = dynamicLogWithPP myLemonbarPP { ppOutput = \x -> hPutStrLn notXMobar x}, 
   startupHook        = myStartupHook
-} `additionalKeys` myKeys
+} `additionalMouseBindings` myMouseBindings `additionalKeys` myKeys
