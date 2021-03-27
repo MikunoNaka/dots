@@ -1,11 +1,20 @@
 call plug#begin('~/local/share/nvim/plugged') 
-Plug 'itchyny/lightline.vim'
+
+" find a better plugin to do this 
+" which works with tsx and 
+" doesn't interfere with coc-pairs
 Plug 'alvan/vim-closetag'
+
+Plug 'itchyny/lightline.vim'
 Plug 'Yggdroot/indentLine'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'romgrk/doom-one.vim'
 Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
+Plug 'maxmellon/vim-jsx-pretty'
+Plug 'yuezk/vim-js'
 
+
+" Plug 'leafgarland/typescript-vim'
 " Plug 'vim-airline/vim-airline'
 " Plug 'dracula/vim', { 'as': 'dracula' }
 " Plug 'sts10/vim-pink-moon'
@@ -60,6 +69,17 @@ let g:lightline = {
 
 " hexokinase config
 let g:Hexokinase_highlighters = ['virtual']
+
+" jsx-pretty config
+let g:vim_jsx_pretty_highlight_close_tag = 1
+let g:vim_jsx_pretty_colorful_config = 1
+
+" set filetypes as typescriptreact
+" augroup SyntaxSettings
+"     autocmd!
+"     autocmd BufNewFile,BufRead *.tsx set filetype=typescript
+" augroup END
+
 
 " colors and theming (copied from DT's config)
 highlight LineNr           ctermfg=1    ctermbg=none    cterm=none
