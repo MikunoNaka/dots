@@ -19,7 +19,7 @@ import XMonad.Actions.GridSelect
 import XMonad.Actions.SwapWorkspaces
 import XMonad.Actions.WindowBringer
 import XMonad.Actions.MouseResize
-import XMonad.Actions.WithAll (sinkAll, killAll) -- testing
+import XMonad.Actions.SpawnOn
 import qualified XMonad.Actions.TreeSelect as TS
 
 -- layouts modifiers
@@ -27,21 +27,19 @@ import XMonad.Layout.Spacing
 import XMonad.Layout.LayoutModifier
 import XMonad.Layout.WindowNavigation as WN
 import XMonad.Layout.Renamed as R (renamed, Rename(Replace))
+import XMonad.Layout.Maximize
+import XMonad.Layout.SubLayouts
 
 -- Layouts
 import XMonad.Layout.BinarySpacePartition as BSP
 import XMonad.Layout.Grid
 import XMonad.Layout.ThreeColumns
 import XMonad.Layout.TwoPane
-import XMonad.Layout.Spiral
 import XMonad.Layout.ResizableTile
-import XMonad.Layout.Maximize
 import XMonad.Layout.Tabbed -- fix this it doesnt work
 import XMonad.Layout.NoBorders
 import XMonad.Layout.Accordion
 import XMonad.Layout.ZoomRow
-import XMonad.Layout.MultiToggle 
-import XMonad.Layout.MultiToggle.Instances 
 
 
 -- hooks
@@ -62,7 +60,7 @@ import XMonad.Util.NamedScratchpad
 myStartupHook :: X ()
 myStartupHook = do
           spawnOnce "start-lemonbar.sh"
-          spawnOnce "firefox"
+	  spawnOn   "  二  " "firefox"
 	  setWMName "AnimeThighsWM"
 	  -- setWMName "LG3D"
           setDefaultCursor xC_left_ptr
@@ -226,6 +224,7 @@ myKeys = [
 	 -- launch/copy apps
          , ((myModMask .|. shiftMask, xK_o), runOrCopy "pcmanfm" (className =? "Pcmanfm"))
          , ((myModMask, xK_m), runOrCopy "vlc" (className =? "vlc"))
+         , ((myModMask .|. shiftMask, xK_m), spawnOn "  十  " "vlc")
 
          -- volume
          , ((altMask, xK_0), spawn (myVolMute))
@@ -343,16 +342,15 @@ myMouseBindings = [((altMask, 2), \w -> kill1)
          ]
 
 -- tabs config
-myTabTheme = def { fontName            = "roboto"
-                 , activeColor         = "#46d9ff"
-                 , inactiveColor       = "#313846"
-                 , activeBorderColor   = "#46d9ff"
-                 , inactiveBorderColor = "#282c34"
-                 , activeTextColor     = "#282c34"
+myTabTheme = def { fontName            = myFont
+                 , activeColor         = "#755999"
+                 , inactiveColor       = "#282c35"
+                 , activeBorderColor   = "#755999"
+                 , inactiveBorderColor = "#313846"
+                 , activeTextColor     = "#FFFFFF"
                  , inactiveTextColor   = "#d0d0d0"
+                 , decoHeight          = 20
                  }
-
-
 
 -- layouts
 myGap = spacingRaw True (Border sGap sGap sGap sGap) True (Border wGap wGap wGap wGap) True
@@ -360,6 +358,7 @@ myGap = spacingRaw True (Border sGap sGap sGap sGap) True (Border wGap wGap wGap
 
 myLayoutHook = avoidStruts (
 	renamed [R.Replace "BSP"]                  (maximize $ smartBorders $ windowNavigation $ myGap $ emptyBSP)
+	||| renamed [R.Replace "Tabbed"]           (maximize $ smartBorders $ windowNavigation $ myGap $ tabbed shrinkText myTabTheme)
 	||| renamed [R.Replace "Accordion"]        (maximize $ smartBorders $ windowNavigation $ myGap $ Accordion)
 	||| renamed [R.Replace "ZoomRow"]          (maximize $ smartBorders $ windowNavigation $ myGap $ zoomRow)
 	||| renamed [R.Replace "TwoPane"]          (maximize $ smartBorders $ windowNavigation $ myGap $ TwoPane (3/100) (1/2))
@@ -397,10 +396,6 @@ myLemonbarPP  = def {
 --     interfaceName = D.interfaceName_ "org.xmonad.Log"
 --     memberName = D.memberName_ "Update"
 
-
-
-
-
 main :: IO ()
 main = do
   notXMobar <- spawnPipe "lemonbar -p -b -g 800x21+0+0  -B '#171520' -F '#ffffff' -o -3 -f 'Source Han Sans JP:size=10' -o 0 -f 'RobotoMono Nerd Font:style=Regular:size=15'"
@@ -418,8 +413,8 @@ main = do
   normalBorderColor  = nBorder,
   focusedBorderColor = fBorder,
   layoutHook         = myLayoutHook,
-  manageHook         = namedScratchpadManageHook myScratchpads,
-  handleEventHook = handleEventHook def <+> fullscreenEventHook,
+  manageHook         = manageSpawn <+> namedScratchpadManageHook myScratchpads,
+  handleEventHook    = handleEventHook def <+> fullscreenEventHook,
 
   -- logHook = dynamicLogWithPP (myLemonbarPP dbus),
   logHook            = dynamicLogWithPP myLemonbarPP { ppOutput = \x -> hPutStrLn notXMobar x}, 
