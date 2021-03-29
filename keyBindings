@@ -1,7 +1,7 @@
-ModQ recompile -- lock
+ModQ LockScreen
 ModW Nitrogen NSP
 ModE EmailClient
-ModR
+ModR TerminalFileManager
 ModT Scratchpad-st
 ModY GIMP
 ModU Scratchpad-scrcpy
@@ -17,10 +17,10 @@ ModH NavigateWindows
 ModJ NavigateWindows
 ModK NavigateWindows
 ModL NavigateWindows
-ModZ -- DND/PauseNotifications
+ModZ 
 ModX
-ModC -- ColorPicker
-ModV Sticky
+ModC ColorPicker
+ModV StickyWindow
 ModB Konqueror
 ModN ClearNotifications
 ModM VLC
