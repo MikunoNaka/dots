@@ -28,7 +28,7 @@ import XMonad.Layout.LayoutModifier
 import XMonad.Layout.WindowNavigation as WN
 import XMonad.Layout.Renamed as R (renamed, Rename(Replace))
 import XMonad.Layout.Maximize
-import XMonad.Layout.SubLayouts
+-- import XMonad.Layout.PerWorkspace
 
 -- Layouts
 import XMonad.Layout.BinarySpacePartition as BSP
@@ -356,20 +356,24 @@ myTabTheme = def { fontName            = myFont
 myGap = spacingRaw True (Border sGap sGap sGap sGap) True (Border wGap wGap wGap wGap) True
 
 
-myLayoutHook = avoidStruts (
-	renamed [R.Replace "BSP"]                  (maximize $ smartBorders $ windowNavigation $ myGap $ emptyBSP)
-	||| renamed [R.Replace "Tabbed"]           (maximize $ smartBorders $ windowNavigation $ myGap $ tabbed shrinkText myTabTheme)
-	||| renamed [R.Replace "Accordion"]        (maximize $ smartBorders $ windowNavigation $ myGap $ Accordion)
-	||| renamed [R.Replace "ZoomRow"]          (maximize $ smartBorders $ windowNavigation $ myGap $ zoomRow)
-	||| renamed [R.Replace "TwoPane"]          (maximize $ smartBorders $ windowNavigation $ myGap $ TwoPane (3/100) (1/2))
-	||| renamed [R.Replace "ZoomRow Mirrored"] (maximize $ smartBorders $ windowNavigation $ myGap $ Mirror zoomRow)
+-- myLayoutHook = onWorkspaces ["  二  ","  九  ","  十  "] altLayouts $ onWorkspaces ["  一  ","  三  ","  四  ","  五  ","  六  ","  七  ","  八  "] defLayouts
+-- myLayoutHook = onWorkspace "  二  " renamed [R.Replace "Tabbed"] (avoidstruts $ smartBorders $ windowNavigation $ myGap $ tabbed shrinkText myTabTheme) ||| defLayouts
+
+myLayoutHook = avoidStruts ( -- layouts to be used in almost every workspace
+        renamed [R.Replace "BSP"]                  (maximize $ smartBorders $ windowNavigation $ myGap $ emptyBSP)
+        ||| renamed [R.Replace "Tabbed"]           (maximize $ smartBorders $ windowNavigation $ myGap $ tabbed shrinkText myTabTheme)
+        ||| renamed [R.Replace "Accordion"]        (maximize $ smartBorders $ windowNavigation $ myGap $ Accordion)
+        ||| renamed [R.Replace "ZoomRow"]          (maximize $ smartBorders $ windowNavigation $ myGap $ zoomRow)
+        ||| renamed [R.Replace "TwoPane"]          (maximize $ smartBorders $ windowNavigation $ myGap $ TwoPane (3/100) (1/2))
+        ||| renamed [R.Replace "ZoomRow Mirrored"] (maximize $ smartBorders $ windowNavigation $ myGap $ Mirror zoomRow)
         ||| renamed [R.Replace "ThreeCol Mid (1)"] (maximize $ smartBorders $ windowNavigation $ myGap $ ThreeColMid 1 (3/100) (1/2))
         ||| renamed [R.Replace "ThreeCol Mid (2)"] (maximize $ smartBorders $ windowNavigation $ myGap $ ThreeColMid 2 (3/100) (1/2))
-	||| renamed [R.Replace "Grid"]             (maximize $ smartBorders $ windowNavigation $ myGap $ Grid)
-	||| renamed [R.Replace "ThreeCol (1)"]     (maximize $ smartBorders $ windowNavigation $ myGap $ ThreeCol 1 (3/100) (1/2))
-	||| renamed [R.Replace "ThreeCol (2)"]     (maximize $ smartBorders $ windowNavigation $ myGap $ ThreeCol 2 (3/100) (1/2))
-	-- ||| tabbedRight shrinkText def
-	)
+        ||| renamed [R.Replace "Grid"]             (maximize $ smartBorders $ windowNavigation $ myGap $ Grid)
+        ||| renamed [R.Replace "ThreeCol (1)"]     (maximize $ smartBorders $ windowNavigation $ myGap $ ThreeCol 1 (3/100) (1/2))
+        ||| renamed [R.Replace "Tabbed"]           (maximize $ smartBorders $ windowNavigation $ myGap $ tabbed shrinkText myTabTheme)
+        ||| renamed [R.Replace "ThreeCol (2)"]     (maximize $ smartBorders $ windowNavigation $ myGap $ ThreeCol 2 (3/100) (1/2))
+	-- ||| onWorkspace "  二  " renamed [R.Replace "Tabbed"]           (smartBorders $ windowNavigation $ myGap $ tabbed shrinkText myTabTheme)
+        )
 
 -- myLemonbarPP :: D.Client -> PP
 -- myLemonbarPP dbus = def { ppOutput = dbusOutput dbus
