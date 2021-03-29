@@ -59,6 +59,11 @@ alias dots='git --git-dir=$HOME/.dots/ --work-tree=$HOME'
 alias ssh-k='eval $(ssh-agent)&& ssh-add /home/zt/.ssh/kalawati_git_key'
 alias ssh-v='eval $(ssh-agent)&& ssh-add /home/zt/.ssh/vidhukant'
 
+# to change title of terminal
+title() {
+	 echo -n -e "\033]0;$@\007"
+}
+
 neofetch
 exa
 eval "$(starship init zsh)"
