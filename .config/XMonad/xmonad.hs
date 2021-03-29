@@ -26,13 +26,10 @@ import qualified XMonad.Actions.TreeSelect as TS
 import XMonad.Layout.Spacing
 import XMonad.Layout.LayoutModifier
 import XMonad.Layout.WindowNavigation as WN
--- import XMonad.Layout.Fullscreen
 import XMonad.Layout.Renamed as R (renamed, Rename(Replace))
 
 -- Layouts
--- import XMonad.Layout.AvoidFloats
 import XMonad.Layout.BinarySpacePartition as BSP
--- import XMonad.Layout.CenteredMaster
 import XMonad.Layout.Grid
 import XMonad.Layout.ThreeColumns
 import XMonad.Layout.TwoPane
@@ -52,7 +49,6 @@ import XMonad.Hooks.SetWMName
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops
--- import XMonad.Hooks.FadeInactive
 
 -- utilities
 import XMonad.Util.SpawnOnce
@@ -67,8 +63,8 @@ myStartupHook :: X ()
 myStartupHook = do
           spawnOnce "start-lemonbar.sh"
           spawnOnce "firefox"
-	  -- setWMName "AnimeThighsWM"
-	  setWMName "LG3D"
+	  setWMName "AnimeThighsWM"
+	  -- setWMName "LG3D"
           setDefaultCursor xC_left_ptr
 
 -- defaults
@@ -117,13 +113,15 @@ myVolMute = "pulseaudio-ctl mute && killall lemonblocks -5"
 
 
 myFont :: String
-myFont = "xft:Roboto:pixelsize=16:antialias=true"
+myFont = "xft:Hack:style=Regular:size=12"
 
 
 -- wm variables
 
-nBorder = "#130F23" -- "#3804f4" -- "#bf00ff"
+-- fBorder = "#bf00ff"
+-- fBorder = "#3804f4"
 fBorder = "#00ff85"
+nBorder = "#130F23"
 
 myBorderWidth = 1
 
@@ -164,13 +162,6 @@ myTSConfig = TS.TSConfig { TS.ts_hidechildren = False
                            , TS.ts_indent       = 80
                            , TS.ts_navigate     = TS.defaultNavigation
                            }
-
-myPowerMenu :: TS.TSConfig (X ()) -> X ()
-myPowerMenu a = TS.treeselectAction a
-    [Node (TS.TSNode "SHUTDOWN" "It's not like I'm gonna miss you, b- baka!" (spawn "shutdown now")) []
-    , Node (TS.TSNode "REBOOT" "Be quick, okay?" (spawn "reboot")) []
-    , Node (TS.TSNode "CANCEL" "Do nothing" (return ())) []
-    ]
 
 myTreeMenu :: TS.TSConfig (X ()) -> X ()
 myTreeMenu a = TS.treeselectAction a
@@ -290,8 +281,6 @@ myKeys = [
 
          -- toggle bars
          , ((myModMask, xK_backslash), sendMessage ToggleStruts) -- toggle both bars
-         -- , ((myModMask, xK_bracketleft), sendMessage $ ToggleStrut D) -- toggle bottom bar
-         -- , ((myModMask, xK_bracketright), sendMessage $ ToggleStrut U) -- toggle top bar
 
          -- BSP layout keybindings
          -- resize
@@ -306,8 +295,6 @@ myKeys = [
          -- other
          , ((myModMask,                              xK_d     ), sendMessage Rotate)
          , ((myModMask,                              xK_s     ), sendMessage BSP.Swap)
---          , ((myModMask .|. shiftMask .|. controlMask , xK_j     ), sendMessage $ SplitShift Prev)
---          , ((myModMask .|. shiftMask .|. controlMask , xK_k     ), sendMessage $ SplitShift Next)
          , ((myModMask, xK_f), withFocused (sendMessage . maximizeRestore))
          ] ++ [ -- for extra workspace(s)
          ((myModMask, key), (windows $ W.greedyView ws))
@@ -438,4 +425,3 @@ main = do
   logHook            = dynamicLogWithPP myLemonbarPP { ppOutput = \x -> hPutStrLn notXMobar x}, 
   startupHook        = myStartupHook
 } `additionalMouseBindings` myMouseBindings `additionalKeys` myKeys `additionalKeysP` myKeys'
--- `additionalMouseBindings` myMouseBindings `additionalKeys` myKeys `mkKeymap` myEmacsKeys
