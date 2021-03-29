@@ -54,6 +54,10 @@ alias zrc='nvim /home/zt/.config/zsh/.zshrc'
 
 # git bare
 alias dots='git --git-dir=$HOME/.dots/ --work-tree=$HOME'
+alias da='dots add'
+alias dc='dots commit'
+# if ssh daemon isn't running, start it and retry pushing
+alias dp='dots push || ssh-v && dots push'
 
 # ssh
 alias ssh-k='eval $(ssh-agent)&& ssh-add /home/zt/.ssh/kalawati_git_key'
