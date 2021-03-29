@@ -3,9 +3,9 @@ import qualified XMonad.StackSet as W
 import XMonad.ManageHook
 
 -- xmonad-log imports
-import qualified DBus as D
-import qualified DBus.Client as D
-import qualified Codec.Binary.UTF8.String as UTF8
+-- import qualified DBus as D
+-- import qualified DBus.Client as D
+-- import qualified Codec.Binary.UTF8.String as UTF8
 
 -- data
 import Data.Tree
@@ -19,13 +19,14 @@ import XMonad.Actions.GridSelect
 import XMonad.Actions.SwapWorkspaces
 import XMonad.Actions.WindowBringer
 import XMonad.Actions.MouseResize
+import XMonad.Actions.WithAll (sinkAll, killAll) -- testing
 import qualified XMonad.Actions.TreeSelect as TS
 
 -- layouts modifiers
 import XMonad.Layout.Spacing
 import XMonad.Layout.LayoutModifier
 import XMonad.Layout.WindowNavigation as WN
-import XMonad.Layout.Fullscreen
+-- import XMonad.Layout.Fullscreen
 import XMonad.Layout.Renamed as R (renamed, Rename(Replace))
 
 -- Layouts
@@ -40,11 +41,17 @@ import XMonad.Layout.ResizableTile
 import XMonad.Layout.Maximize
 import XMonad.Layout.Tabbed -- fix this it doesnt work
 import XMonad.Layout.NoBorders
+import XMonad.Layout.Accordion
+import XMonad.Layout.ZoomRow
+import XMonad.Layout.MultiToggle 
+import XMonad.Layout.MultiToggle.Instances 
+
 
 -- hooks
 import XMonad.Hooks.SetWMName
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.DynamicLog
+import XMonad.Hooks.EwmhDesktops
 -- import XMonad.Hooks.FadeInactive
 
 -- utilities
@@ -58,7 +65,7 @@ import XMonad.Util.NamedScratchpad
 
 myStartupHook :: X ()
 myStartupHook = do
-	  spawnOnce "start-lemonbar.sh"
+          spawnOnce "start-lemonbar.sh"
           spawnOnce "firefox"
 	  -- setWMName "AnimeThighsWM"
 	  setWMName "LG3D"
@@ -75,7 +82,7 @@ myTerminal :: String
 myTerminal = "st"
 
 myLauncher :: String
-myLauncher = ".//home/zt/.config/scripts/run_dmenu"
+myLauncher = "run_dmenu"
 
 myBrowser :: String
 myBrowser = "brave"
@@ -96,7 +103,7 @@ myScreenshot :: String
 myScreenshot = "scrot /zt/Screenshots/Screenshot-%Y-%d-%m--%T.png"
 
 myColorPicker :: String
-myColorPicker = ".//zt/Programs/colorpicker --short --one-shot --preview | xsel -b"
+myColorPicker = "colorpicker --short --one-shot --preview | xsel -b"
 
 -- volume
 myVolUp :: String
@@ -211,31 +218,22 @@ myScratchpads = [
 -- keybindings
 myKeys = [
          ((myModMask, xK_Return), spawn (myTerminal))
-         , ((myModMask .|. shiftMask, xK_p), spawn (myLauncher)) -- Doesn't work
 	 , ((myModMask .|. shiftMask, xK_Return), spawn (myScreenshot))
 	 , ((myModMask, xK_q), spawn (myLockscreen))
-	 , ((myModMask, xK_c), spawn (myColorPicker)) -- Doesn't work
 	 , ((myModMask, xK_n), spawn ("dunstctl close-all"))
 
          , ((altMask, xK_w), kill1)
-         , ((altMask .|. shiftMask, xK_k), kill1)
          , ((myModMask, xK_a), withFocused $ windows . W.sink) -- unfloat windows
 
-         -- TreeSelect
-	 , ((altMask, xK_F4), myPowerMenu myTSConfig)
-	 , ((myModMask, xK_p), myTreeMenu myTSConfig)
-
          -- launch apps/execute scripts
-         -- , ((myModMask, xK_i), spawn (myBrowser))
          , ((myModMask, xK_o), spawn (myFileManager))
          , ((myModMask, xK_y), spawn ("gimp"))
          , ((myModMask, xK_e), spawn (myEmailClient))
-         -- , ((myModMask, xK_m), spawn ("vlc"))
          , ((myModMask, xK_b), spawn ("konqueror"))
+         , ((myModMask, xK_r), spawn (myTerminal ++ " -e lf"))
 	
 	 -- launch/copy apps
          , ((myModMask .|. shiftMask, xK_o), runOrCopy "pcmanfm" (className =? "Pcmanfm"))
-         , ((myModMask, xK_i), runOrCopy "firefox" (className =? "Firefox"))
          , ((myModMask, xK_m), runOrCopy "vlc" (className =? "vlc"))
 
          -- volume
@@ -283,25 +281,17 @@ myKeys = [
          , ((altMask, xK_j), windows W.focusDown)
          , ((altMask, xK_k), windows W.focusUp)
 
-         -- grid select
-         , ((myModMask, xK_g), goToSelected defaultGSConfig)
-
          -- kinda bad horizontal resizing of windows in non-bsp layouts
          , ((myModMask, xK_Right), sendMessage Expand)
          , ((myModMask, xK_Left), sendMessage Shrink)
-
-      
-         -- windowbringer
-         , ((myModMask, xK_b), bringMenu)
---         , ((myModMask, xK_g), gotoMenu)
 
          -- paste x selection
          , ((altMask, xK_v), pasteSelection)
 
          -- toggle bars
          , ((myModMask, xK_backslash), sendMessage ToggleStruts) -- toggle both bars
-         , ((myModMask, xK_bracketleft), sendMessage $ ToggleStrut D) -- toggle bottom bar
-         , ((myModMask, xK_bracketright), sendMessage $ ToggleStrut U) -- toggle top bar
+         -- , ((myModMask, xK_bracketleft), sendMessage $ ToggleStrut D) -- toggle bottom bar
+         -- , ((myModMask, xK_bracketright), sendMessage $ ToggleStrut U) -- toggle top bar
 
          -- BSP layout keybindings
          -- resize
@@ -336,11 +326,28 @@ myKeys = [
          ((myModMask, xK_v), windows copyToAll)  -- make window visible on all screens
          , ((myModMask .|. shiftMask, xK_v), killAllOtherCopies)
 	 ]
+-- Emacs style keybindings
+myKeys' :: [(String, X ())]
+myKeys' =
+         [-- Running or copying browsers 
+	 ("M-i f", runOrCopy "firefox" (className =? "Firefox"))
+	 , ("M-i S-f", spawn "firefox --private-window")
+         , ("M-i b", spawn "brave")
+         , ("M-i S-b", spawn "brave --incognito")
+	 -- this doesn't work when in myKeys
+	 , ("M-c", spawn myColorPicker)
+	 -- Launchers
+         , ("M-p", myTreeMenu myTSConfig)
+	 , ("M-S-p", spawn myLauncher)
+	 -- GridSelect
+	 , ("M-g g", goToSelected defaultGSConfig)
+	 , ("M-g b", bringSelected defaultGSConfig)
+	 ]
 -- mouse keybindings
 -- 1, 2, 3 = left, middle, right
 myMouseBindings = [((altMask, 2), \w -> kill1)
-         , ((altMask, 1), \w -> spawn "pcmanfm")
-         , ((altMask, 3), \w -> spawn "konqueror")
+         -- , ((altMask, 1), \w -> spawn "pcmanfm")
+         -- , ((altMask, 3), \w -> spawn "konqueror")
          , ((altMask, 2), \w -> spawn myVolMute)
          , ((altMask, 4), \w -> spawn myVolDown)
          , ((altMask, 5), \w -> spawn myVolUp)
@@ -365,14 +372,17 @@ myGap = spacingRaw True (Border sGap sGap sGap sGap) True (Border wGap wGap wGap
 
 
 myLayoutHook = avoidStruts (
-	renamed [R.Replace "BSP"]                  (maximize $ smartBorders $ fullscreenFocus $ windowNavigation $ myGap $ emptyBSP)
-        ||| renamed [R.Replace "ThreeCol Mid (1)"] (maximize $ smartBorders $ fullscreenFocus $ windowNavigation $ myGap $ ThreeColMid 1 (3/100) (1/2))
-        ||| renamed [R.Replace "ThreeCol Mid (2)"] (maximize $ smartBorders $ fullscreenFocus $ windowNavigation $ myGap $ ThreeColMid 2 (3/100) (1/2))
-	||| renamed [R.Replace "Grid"]             (maximize $ smartBorders $ fullscreenFocus $ windowNavigation $ myGap $ Grid)
-	||| renamed [R.Replace "TwoPane"]          (maximize $ smartBorders $ fullscreenFocus $ windowNavigation $ myGap $ TwoPane (3/100) (1/2))
-	||| renamed [R.Replace "ThreeCol (1)"]     (maximize $ smartBorders $ fullscreenFocus $ windowNavigation $ myGap $ ThreeCol 1 (3/100) (1/2))
-	||| renamed [R.Replace "ThreeCol (2)"]     (maximize $ smartBorders $ fullscreenFocus $ windowNavigation $ myGap $ ThreeCol 2 (3/100) (1/2))
-	||| tabbedRight shrinkText def
+	renamed [R.Replace "BSP"]                  (maximize $ smartBorders $ windowNavigation $ myGap $ emptyBSP)
+	||| renamed [R.Replace "Accordion"]        (maximize $ smartBorders $ windowNavigation $ myGap $ Accordion)
+	||| renamed [R.Replace "ZoomRow"]          (maximize $ smartBorders $ windowNavigation $ myGap $ zoomRow)
+	||| renamed [R.Replace "TwoPane"]          (maximize $ smartBorders $ windowNavigation $ myGap $ TwoPane (3/100) (1/2))
+	||| renamed [R.Replace "ZoomRow Mirrored"] (maximize $ smartBorders $ windowNavigation $ myGap $ Mirror zoomRow)
+        ||| renamed [R.Replace "ThreeCol Mid (1)"] (maximize $ smartBorders $ windowNavigation $ myGap $ ThreeColMid 1 (3/100) (1/2))
+        ||| renamed [R.Replace "ThreeCol Mid (2)"] (maximize $ smartBorders $ windowNavigation $ myGap $ ThreeColMid 2 (3/100) (1/2))
+	||| renamed [R.Replace "Grid"]             (maximize $ smartBorders $ windowNavigation $ myGap $ Grid)
+	||| renamed [R.Replace "ThreeCol (1)"]     (maximize $ smartBorders $ windowNavigation $ myGap $ ThreeCol 1 (3/100) (1/2))
+	||| renamed [R.Replace "ThreeCol (2)"]     (maximize $ smartBorders $ windowNavigation $ myGap $ ThreeCol 2 (3/100) (1/2))
+	-- ||| tabbedRight shrinkText def
 	)
 
 -- myLemonbarPP :: D.Client -> PP
@@ -420,11 +430,12 @@ main = do
   workspaces         = myWorkspaces,
   normalBorderColor  = nBorder,
   focusedBorderColor = fBorder,
-  -- mouseBindings      = additionalMouseBindings myMouseBindings,
   layoutHook         = myLayoutHook,
-  manageHook         = namedScratchpadManageHook myScratchpads <+> fullscreenManageHook, 
-  handleEventHook    = fullscreenEventHook,
+  manageHook         = namedScratchpadManageHook myScratchpads,
+  handleEventHook = handleEventHook def <+> fullscreenEventHook,
+
   -- logHook = dynamicLogWithPP (myLemonbarPP dbus),
   logHook            = dynamicLogWithPP myLemonbarPP { ppOutput = \x -> hPutStrLn notXMobar x}, 
   startupHook        = myStartupHook
-} `additionalMouseBindings` myMouseBindings `additionalKeys` myKeys
+} `additionalMouseBindings` myMouseBindings `additionalKeys` myKeys `additionalKeysP` myKeys'
+-- `additionalMouseBindings` myMouseBindings `additionalKeys` myKeys `mkKeymap` myEmacsKeys
