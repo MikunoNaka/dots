@@ -48,6 +48,10 @@ alias gi='nvim .gitignore'
 alias gp='git push'
 alias gcl='git clone'
 
+# dotfiles
+alias xc='nvim /home/zt/.config/XMonad/xmonad.hs'
+alias zrc='nvim /home/zt/.config/zsh/.zshrc'
+
 # git bare
 alias dots='git --git-dir=$HOME/.dots/ --work-tree=$HOME'
 
