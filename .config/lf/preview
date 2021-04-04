@@ -1,5 +1,4 @@
 #!/bin/sh
-# thank you brodie robertson for this
 
 # Clear the last preview (if any)
 $HOME/.config/lf/image clear
@@ -46,3 +45,4 @@ case "$1" in
 		;;
 	*) highlight --out-format ansi "$1" || cat "$1";;
 esac
+
