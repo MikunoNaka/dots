@@ -10,34 +10,87 @@ set shell zsh
 # unmap keys
 map y
 map d
+map m
 
-# keybindings
+# keymappings
 # rename
 map C rename # at the end
 map c push C<a-b><a-b><a-f>
 map <c-c> push C<c-u> # new rename
+# map B bulkrename
 
+# cut/copy/paste
 map yy copy
 map dd cut
+map D delete
+
+# new files/directories
+map md mkdir
+map mf mkfile
+
+# misc
 map H set hidden!
+map <c-r> reload
 
 
 
 # custom commands
+cmd open ${{
+  case $(file --mime-type "$f" -bL) in
+    text/*|application/json) $EDITOR "$f";;
+    *) xdg-open "$f" ;;
+  esac
+}}
 
 cmd mkdir ${{
-  echo "Directory Name: "
+  printf "Directory Name: "
   read ans
   mkdir $ans
 }}
 
-# cmd copyto ${{
-# 	clear; tput cup $(($(tput lines)/3)); tput bold
-# 	set -f
-# 	clear; echo "Copy to where?"
-# 	dest="$(cut -d'	' -f2- ${XDG_CONFIG_HOME:-$HOME/.config}/shell/bm-dirs | fzf | sed 's|~|$HOME|' )" &&
-# 	for x in $fx; do
-# 		eval cp -ivr \"$x\" \"$dest\"
-# 	done &&
-# 	notify-send "📋 File(s) copied." "File(s) copies to $dest."
-# }}
+cmd mkfile ${{
+  printf "File Name: "
+  read ans
+  $EDITOR $ans
+}}
+
+cmd sudomkfile ${{
+  printf "File Name: "
+  read ans
+  sudo $EDITOR $ans
+}}
+
+cmd chmod ${{
+  printf "Mode Bits: "
+  read ans
+
+  for file in "$fx"
+  do
+    chmod $ans $file
+  done
+
+  lf -remote 'send reload'
+}}
+
+# archive bindings
+cmd unarchive ${{
+  case "$f" in
+      *.zip) unzip "$f" ;;
+      *.tar.gz) tar -xzvf "$f" ;;
+      *.tar.bz2) tar -xjvf "$f" ;;
+      *.tar) tar -xvf "$f" ;;
+      *) echo "Unsupported format" ;;
+  esac
+}}
+
+cmd zip %zip -r "$f" "$f"
+cmd tar %tar cvf "$f.tar" "$f"
+cmd targz %tar cvzf "$f.tar.gz" "$f"
+cmd tarbz2 %tar cjvf "$f.tar.bz2" "$f"
+
+# archive mappings
+map az zip
+map at tar
+map ag targz
+map ab targz
+map au unarchive
