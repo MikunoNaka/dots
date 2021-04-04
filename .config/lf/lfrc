@@ -1,0 +1,43 @@
+# Basic Settings
+set previewer ~/.config/lf/pv #preview
+set preview true
+# set drawbox true
+# set icons true
+set ignorecase true
+set scrolloff 1
+set shell zsh
+
+# unmap keys
+map y
+map d
+
+# keybindings
+# rename
+map C rename # at the end
+map c push C<a-b><a-b><a-f>
+map <c-c> push C<c-u> # new rename
+
+map yy copy
+map dd cut
+map H set hidden!
+
+
+
+# custom commands
+
+cmd mkdir ${{
+  echo "Directory Name: "
+  read ans
+  mkdir $ans
+}}
+
+# cmd copyto ${{
+# 	clear; tput cup $(($(tput lines)/3)); tput bold
+# 	set -f
+# 	clear; echo "Copy to where?"
+# 	dest="$(cut -d'	' -f2- ${XDG_CONFIG_HOME:-$HOME/.config}/shell/bm-dirs | fzf | sed 's|~|$HOME|' )" &&
+# 	for x in $fx; do
+# 		eval cp -ivr \"$x\" \"$dest\"
+# 	done &&
+# 	notify-send "📋 File(s) copied." "File(s) copies to $dest."
+# }}
