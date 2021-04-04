@@ -1,5 +1,5 @@
 # Basic Settings
-set previewer ~/.config/lf/pv #preview
+set previewer ~/.config/lf/preview
 set preview true
 # set drawbox true
 # set icons true
@@ -17,22 +17,30 @@ map m
 map C rename # at the end
 map c push C<a-b><a-b><a-f>
 map <c-c> push C<c-u> # new rename
-# map B bulkrename
+map B bulk-rename # fix this
+
+# lf commands
+map H set hidden!
+map <c-r> reload
 
 # cut/copy/paste
+map p paste
 map yy copy
 map dd cut
 map D delete
 
 # new files/directories
-map md mkdir
-map mf mkfile
+map md push :mkdir<space>
+map mf push :mkfile<space>
+map mF push :touch<space>
 
-# misc
-map H set hidden!
-map <c-r> reload
+# opening files
+map o push :open-with<space>
+map L open_ext
+map P share
 
-
+# selecting files/globs
+map t toggle
 
 # custom commands
 cmd open ${{
@@ -42,22 +50,39 @@ cmd open ${{
   esac
 }}
 
-cmd mkdir ${{
-  printf "Directory Name: "
-  read ans
-  mkdir $ans
+# open in another terminal
+cmd open_ext ${{
+  case $(file --mime-type "$f" -bL) in
+    text/*|application/json) $TERMINAL "-e" $EDITOR "$f";;
+    *) xdg-open "$f" ;;
+  esac
 }}
 
-cmd mkfile ${{
-  printf "File Name: "
-  read ans
-  $EDITOR $ans
-}}
+# cmd mkdir ${{
+#   set -f
+#   printf "Directory Name: "
+#   read ans
+#   mkdir $ans
+# }}
 
-cmd sudomkfile ${{
-  printf "File Name: "
-  read ans
-  sudo $EDITOR $ans
+# cmd mkfile ${{
+#   printf "File Name: "
+#   read ans
+#   $EDITOR $ans
+# }}
+
+# cmd mkdir %mkdir "$@"
+cmd mkdir %{{
+    IFS=" "
+    mkdir -p -- "$*"
+    lf -remote "send $id select \"$*\""
+}}
+cmd mkfile %nvim "$@"
+# cmd touch %touch "$@"
+cmd touch %{{
+    IFS=" "
+    touch "$*"
+    lf -remote "send $id select \"$*\""
 }}
 
 cmd chmod ${{
@@ -71,6 +96,33 @@ cmd chmod ${{
 
   lf -remote 'send reload'
 }}
+
+cmd open-with %"$@" $fx
+cmd share $curl -F"file=@$fx" https://0x0.st | xclip -selection c
+
+# bulk rename non-hidden or selected files
+# cmd bulk-rename ${{
+#     old="$(mktemp)"
+#     new="$(mktemp)"
+#     [ -n "$fs" ] && fs="$(ls)"
+#     printf '%s\n' "$fs" >"$old"
+#     printf '%s\n' "$fs" >"$new"
+#     $EDITOR "$new"
+#     [ "$(wc -l "$new")" -ne "$(wc -l "$old")" ] && exit
+#     paste "$old" "$new" | while IFS= read -r names; do
+#         src="$(printf '%s' "$names" | cut -f1)"
+#         dst="$(printf '%s' "$names" | cut -f2)"
+#         if [ "$src" = "$dst" ] || [ -e "$dst" ]; then
+#             continue
+#         fi
+#         mv -- "$src" "$dst"
+#     done
+#     rm -- "$old" "$new"
+#     lf -remote "send $id unselect"
+# }}
+
+# override paste with cp-p
+cmd paste $cp-p --lf-paste $id
 
 # archive bindings
 cmd unarchive ${{
@@ -94,3 +146,33 @@ map at tar
 map ag targz
 map ab targz
 map au unarchive
+
+# this runs on each directory change
+cmd on-cd &{{
+    # display git repository status in your prompt
+    source /usr/share/git/completion/git-prompt.sh
+    GIT_PS1_SHOWDIRTYSTATE=auto
+    GIT_PS1_SHOWSTASHSTATE=auto
+    GIT_PS1_SHOWUNTRACKEDFILES=auto
+    GIT_PS1_SHOWUPSTREAM=auto
+    GIT_PS1_COMPRESSSPARSESTATE=auto
+    git=$(__git_ps1 " [GIT BRANCH:> %s]") || true
+    fmt="\033[32;1m%u@%h\033[0m:\033[34;1m%w\033[0m\033[33;1m$git\033[0m"
+    lf -remote "send $id set promptfmt \"$fmt\""
+    
+    # update window title
+    printf "\033]0; $PWD\007" > /dev/tty
+}}
+
+# set number of columns depending
+# on window size on startup
+# %{{
+#     w=$(tput cols)
+#     if [ $w -le 80 ]; then
+#         lf -remote "send $id set ratios 1:2"
+#     elif [ $w -le 160 ]; then
+#         lf -remote "send $id set ratios 1:2:3"
+#     else
+#         lf -remote "send $id set ratios 1:2:3:5"
+#     fi
+# }}
