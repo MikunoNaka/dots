@@ -1,0 +1,53 @@
+ModQ LockScreen
+ModW Nitrogen NSP
+ModE EmailClient
+ModR TerminalFileManager
+ModT Scratchpad-st
+ModY GIMP
+ModU Scratchpad-scrcpy
+ModI Browser
+ModO FileManager
+ModP CommandLauncher
+ModA SinkWindows
+ModS Swap BSP
+ModD rotate BSP
+ModF MaximizeWindow
+ModG gridselect
+ModH NavigateWindows
+ModJ NavigateWindows
+ModK NavigateWindows
+ModL NavigateWindows
+ModZ 
+ModX
+ModC ColorPicker
+ModV StickyWindow
+ModB Konqueror
+ModN ClearNotifications
+ModM VLC
+
+AltQ
+AltW KillWindow
+AltE
+AltR
+AltT
+AltY
+AltU
+AltI
+AltO
+AltP
+AltA
+AltS
+AltD
+AltF
+AltG
+AltH CycleTags
+AltJ CycleWindows
+AltK CycleWindows
+AltL CycleTags
+AltZ
+AltX
+AltC
+AltV
+AltB
+AltN
+AltM
