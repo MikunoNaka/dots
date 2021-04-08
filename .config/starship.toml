@@ -21,21 +21,7 @@ disabled = true
 disabled = false
 min_time = 5000
 format = "[took](yellow) [$duration](bold #FF0074) "
-# show_notifications = true
-# min_time_to_notify = 180000
+show_notifications = true
+min_time_to_notify = 10000
 
-# disabling modules for
-# programming languages
-
-[golang]
-disabled = true
-
-[python]
-disabled = true
-
-[java]
-disabled = true
-
-[lua]
-disabled = true
 
