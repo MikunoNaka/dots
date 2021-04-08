@@ -47,6 +47,7 @@ let g:coc_global_extentions = [
   \ 'coc-tsserver', 
   \ 'coc-css',
   \ 'coc-html',
+  \ 'coc-cpp',
   \ ]
 
 " line numbers
@@ -82,4 +83,7 @@ let g:vim_jsx_pretty_colorful_config = 1
 
 
 " colors and theming (copied from DT's config)
-highlight LineNr           ctermfg=1    ctermbg=none    cterm=none
+"highlight LineNr           ctermfg=1    ctermbg=none    cterm=none
+
+" disable word wrapping
+set nowrap
