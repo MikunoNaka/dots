@@ -1,0 +1,5 @@
+0,5,NULL,/usr/bin/lbscripts/volume.sh,r,NULL,130F23,fe6c69,pamixer -t; killall lemonblocks -5,NULL,pavucontrol && killall lemonblocks -5,pamixer -i 5; killall lemonblocks -5,pamixer -d 5; killall lemonblocks -5, , 
+5,4,NULL,/usr/bin/lbscripts/cpu_temp.sh,r,NULL,130F23,1045cc,NULL,NULL,NULL,NULL,NULL, , 
+5,3,NULL,/usr/bin/lbscripts/cpu_load.sh,r,NULL,130F23,7410cc,st -e htop,NULL,NULL,NULL,NULL, , 
+5,2,NULL,/usr/bin/lbscripts/mem_usage.sh,r,NULL,130F23,10cc8e,NULL,NULL,NULL,NULL,NULL, , 
+30,1,NULL,/usr/bin/lbscripts/date.sh,r,NULL,130F23,6C71C4,NULL,NULL,NULL,NULL,NULL, , 
