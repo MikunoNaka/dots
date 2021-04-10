@@ -7,61 +7,56 @@
 <body>
 	<style>
 		body {
-		        margin: 7px;
-		        background-color: #111111;
-		        background-image: url('main/background.jpg');
-		        background-repeat: no-repeat;
-		        background-size: cover;
+			margin: 0px;
+			background-image: url('main/background.jpg');
+			background-repeat: no-repeat;
+			background-size: cover;
 		}
-		
-		.nav-container {
-		        margin: -7px;
-		        background-color: #3333330d;
-		        overflow: hidden;
-		        position: fixed;
-		        bottom: 6px;
-		        width: 100%;
-		        padding: 13px 0px 22px 0px;
-		}
-		
 		.nav {
-		        max-width: 96%;
-		        margin: 3%;
-		        padding: 12px 12px 12px 12px;
-		        background-color: #FCFCFCdd;
-		        border: 2px solid #232627;
-		        border-radius: 90px 90px 90px 90px;
+			position: absolute;
+			bottom: 0.5rem;
+			left: 0; right: 0;
+
+			margin: auto;
+			width: 90%;
+			height: 3rem;
+
+			background-color: #FFFFFF;
+			border: 2px solid #232627;
+			border-radius: 1.75rem;
+
+			display: flex;
+			flex-direction: row;
+			flex-wrap: wrap;
+			justify-content: space-evenly;
+			align-items: center;
 		}
-		
+		.nav .a {
+			height: 2rem;
+		}
+		.link-container {
+			background-color: #5B76B7;
+			padding: 0.5rem 1rem;
+			border-radius: 1.5rem;
+		}
 		.nav a {
-		        color: #FFFFFF;
-		        background-color: #5b76b7;
-		        text-decoration: none;
-		        padding: 8px 18px;
-		        border-radius: 20px;
-		        margin-right: 3px;
-		        margin-left: 3px;
+			color: white;
+			text-decoration: none;
 		}
-		
 	</style>
-	<div class="clock">
-		{{ .time }}
-	</div>
-	<div class="nav-container">
-		<span class="nav">
-			<a href="https://myanimelist.net">MyAnimeList</a>
-			<a href="https://old.reddit.com">Reddit</a>
-			<a href="https://myanimelist.net/profile/MikunoNaka">MAL Profile</a>
-			<a href="https://twitter.com">Twitter</a>
-			<a href="https://youtube.com">YouTube</a>
-			<a href="https://amazon.in">Amazon</a>
-			<a href="https://mega.nz">Mega</a>
-			<a href="https://nyaa.si">Nyaa</a>
-			<a href="https://www.youtube.com/playlist?list=PL8lRJQHQWdduy2V0DQQ4Lm0P572XJFVB9">Music</a>
-			<a href="https://www.youtube.com/playlist?list=PL8lRJQHQWddu55nsz8CezmJJ-GRVISZ1E">音楽</a>
-			<a href="http://localhost:8080">localhost</a>
-			<a href="https://colorpicker.me/#5B76B7">color picker</a>
-		</span>
+	<div class="clock">{{ .time }}</div>
+	<div class="nav">
+		<div class="link-container"><a href="https://myanimelist.net">MyAnimeList</a></div>
+		<div class="link-container"><a href="https://old.reddit.com">Reddit</a></div>
+		<div class="link-container"><a href="https://myanimelist.net/profile/MikunoNaka">MAL Profile</a></div>
+		<div class="link-container"><a href="https://youtube.com">YouTube</a></div>
+		<div class="link-container"><a href="https://amazon.in">Amazon</a></div>
+		<div class="link-container"><a href="https://mega.nz">Mega</a></div>
+		<div class="link-container"><a href="https://nyaa.si">Nyaa</a></div>
+		<div class="link-container"><a href="https://www.youtube.com/playlist?list=PL8lRJQHQWdduy2V0DQQ4Lm0P572XJFVB9">Music</a></div>
+		<div class="link-container"><a href="https://www.youtube.com/playlist?list=PL8lRJQHQWddu55nsz8CezmJJ-GRVISZ1E">音楽</a></div>
+		<div class="link-container"><a href="http://localhost:8080">localhost</a></div>
+		<div class="link-container"><a href="https://colorpicker.me/#5B76B7">color picker</a></div>
 	</div>
 </body>
 </html>
