@@ -59,7 +59,7 @@ import XMonad.Util.NamedScratchpad
 myStartupHook :: X ()
 myStartupHook = do
           spawnOnce "start-lemonbar.sh"
-	  spawnOn   "  二  " "librewolf"
+	  spawnOn   "  二  " "firefox"
 	  setWMName "AnimeThighsWM"
 	  -- setWMName "LG3D"
           setDefaultCursor xC_left_ptr
@@ -75,7 +75,7 @@ myTerminal :: String
 myTerminal = "st"
 
 myLauncher :: String
-myLauncher = "run_dmenu"
+myLauncher = "dmenu_run"
 
 myBrowser :: String
 myBrowser = "brave"
@@ -176,7 +176,7 @@ myTreeMenu a = TS.treeselectAction a
         , Node (TS.TSNode "LibreOffice" "" (spawn "libreoffice")) []
     	, Node (TS.TSNode "Browsers" "" (return()))
             [ Node (TS.TSNode "Vivaldi" "" (spawn "vivaldi-stable")) []
-            , Node (TS.TSNode "librewolf" "" (spawn "librewolf")) []
+            , Node (TS.TSNode "Firefox" "" (spawn "firefox")) []
             , Node (TS.TSNode "Brave" "" (spawn "brave")) []
 	    ]
 	]
@@ -315,8 +315,8 @@ myKeys = [
 myKeys' :: [(String, X ())]
 myKeys' =
          [-- Running or copying browsers 
-	 ("M-i f", runOrCopy "librewolf" (className =? "Librewolf"))
-	 , ("M-i S-f", spawn "librewolf")
+	 ("M-i f", runOrCopy "firefox" (className =? "Firefox"))
+	 , ("M-i S-f", spawn "firefox")
          , ("M-i b", spawn "brave")
          , ("M-i S-b", spawn "brave --incognito")
 	 -- this doesn't work when in myKeys

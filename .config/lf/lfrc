@@ -122,7 +122,7 @@ cmd share $curl -F"file=@$fx" https://0x0.st | xclip -selection c
 # }}
 
 # override paste with cp-p
-cmd paste $cp-p --lf-paste $id
+# cmd paste $cp-p --lf-paste $id
 
 # archive bindings
 cmd unarchive ${{

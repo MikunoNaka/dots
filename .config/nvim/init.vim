@@ -13,7 +13,7 @@ Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
 Plug 'maxmellon/vim-jsx-pretty'
 Plug 'yuezk/vim-js'
 
-
+" Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 " Plug 'leafgarland/typescript-vim'
 " Plug 'vim-airline/vim-airline'
 " Plug 'dracula/vim', { 'as': 'dracula' }
@@ -87,3 +87,30 @@ let g:vim_jsx_pretty_colorful_config = 1
 
 " disable word wrapping
 set nowrap
+
+" this makes firenvim work
+" if exists('g:started_by_firenvim')
+"   set laststatus=0
+"   au BufEnter github.com_*.txt set filetype=markdown
+" else
+"   set laststatus=2
+" endif
+
+" firenvim config
+" let g:firenvim_config = { 
+"     \ 'globalSettings': {
+"         \ 'alt': 'all',
+"     \  },
+"     \ 'localSettings': {
+"         \ '.*': {
+"             \ 'cmdline': 'neovim',
+"             \ 'content': 'text',
+"             \ 'priority': 0,
+"             \ 'selector': 'textarea',
+"             \ 'takeover': 'always',
+"         \ },
+"     \ }
+" \ }
+" let fc = g:firenvim_config['localSettings']
+" let fc['.*'] = { 'selector': 'textarea:not([readonly]), div[role="textbox"]' }
+" let fc['.*'] = { 'takeover': 'always' }

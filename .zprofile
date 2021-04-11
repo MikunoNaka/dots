@@ -1,7 +1,7 @@
 export EDITOR="nvim"
 export VISUAL="emacs"
 export TERMINAL="st"
-export BROWSER="librewolf"
+export BROWSER="firefox"
 export READER="zathura"
 export COLORTERM="truecolor"
 export PAGER="vim"
