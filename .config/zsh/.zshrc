@@ -9,10 +9,9 @@ bindkey -v
 # paths
 # export PATH=/:$PATH
 export PATH=/zt/Docs/Go:$PATH
-export PATH=/home/zt/.config/scripts:$PATH
+export PATH=/home/zt/.scripts:$PATH
 export PATH=/zt/Programs:$PATH
 export PATH=/home/zt/.local/bin:$PATH
-export PATH=/zt/Docs/GoMinder:$PATH
 export PATH=/usr/local/bin:$PATH
 export PATH=/home/zt/.emacs.d/bin:$PATH
 
