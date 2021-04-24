@@ -60,8 +60,8 @@ myStartupHook :: X ()
 myStartupHook = do
           spawnOnce "start-lemonbar.sh"
 	  spawnOn   "  二  " "firefox"
-	  setWMName "AnimeThighsWM"
-	  -- setWMName "LG3D"
+	  -- setWMName "AnimeThighsWM"
+	  setWMName "LG3D"
           setDefaultCursor xC_left_ptr
 
 -- defaults

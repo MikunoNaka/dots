@@ -4,7 +4,7 @@ export TERMINAL="st"
 export BROWSER="firefox"
 export READER="zathura"
 export COLORTERM="truecolor"
-export PAGER="vim"
+export PAGER="less"
 export WM="xmonad"
 
 export QT_QPA_PLATFORMTHEME=gtk2
@@ -14,3 +14,5 @@ startx
 if [[ "$(tty)" = "dev/tty1" ]]; then
 	startx
 fi
+
+/zt/Programs/startpage-server & disown # errors out without disown

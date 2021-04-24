@@ -9,13 +9,18 @@ bindkey -v
 # paths
 # export PATH=/:$PATH
 export PATH=/zt/Docs/Go:$PATH
+export GOPATH="/zt/Docs/Go/"
+
+export PATH=/zt/Programs/flutter/bin:$PATH
+
 export PATH=/home/zt/.scripts:$PATH
 export PATH=/zt/Programs:$PATH
 export PATH=/home/zt/.local/bin:$PATH
-export PATH=/usr/local/bin:$PATH
 export PATH=/home/zt/.emacs.d/bin:$PATH
 
-export GOPATH="/zt/Docs/Go/"
+export PATH=/usr/local/bin:$PATH
+
+
 
 # aliases
 # directories
@@ -36,7 +41,6 @@ alias lsa='exa -al'
 alias nf='neofetch'
 alias adbc='adb connect 10.0.0.51:5555'
 alias x='chmod +x'
-
 # git
 alias gs='git status'
 alias ga='git add'
@@ -64,7 +68,12 @@ alias ssh-v='eval $(ssh-agent)&& ssh-add /home/zt/.ssh/vidhukant'
 
 # to change title of terminal
 title() {
-	 echo -n -e "\033]0;$@\007"
+  echo -n -e "\033]0;$@\007"
+}
+
+# record screen
+srecord() {
+  ffmpeg -f x11grab -s 1366x768 -i :0.0 $@
 }
 
 neofetch

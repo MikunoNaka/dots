@@ -75,6 +75,16 @@ let g:Hexokinase_highlighters = ['virtual']
 let g:vim_jsx_pretty_highlight_close_tag = 1
 let g:vim_jsx_pretty_colorful_config = 1
 
+" for tab stop
+filetype plugin indent on
+" On pressing tab, insert 2 spaces
+set expandtab
+" show existing tab with 2 spaces width
+set tabstop=2
+set softtabstop=2
+" when indenting with '>', use 2 spaces width
+set shiftwidth=2
+
 " set filetypes as typescriptreact
 " augroup SyntaxSettings
 "     autocmd!
