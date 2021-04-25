@@ -10,9 +10,9 @@ export WM="xmonad"
 export QT_QPA_PLATFORMTHEME=gtk2
 export ZDOTDIR="$HOME/.config/zsh"
 
-startx
+/zt/Programs/startpage-server &
+
 if [[ "$(tty)" = "dev/tty1" ]]; then
 	startx
 fi
 
-/zt/Programs/startpage-server & disown # errors out without disown
