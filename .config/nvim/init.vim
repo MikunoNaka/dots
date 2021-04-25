@@ -1,14 +1,17 @@
-call plug#begin('~/local/share/nvim/plugged') 
+call plug#begin('~/.local/share/nvim/plugged') 
 
 " find a better plugin to do this 
 " which works with tsx and 
 " doesn't interfere with coc-pairs
-Plug 'alvan/vim-closetag'
+" Plug 'alvan/vim-closetag'
 
+" basic
 Plug 'itchyny/lightline.vim'
 Plug 'Yggdroot/indentLine'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'romgrk/doom-one.vim'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+" web dev
 Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
 Plug 'maxmellon/vim-jsx-pretty'
 Plug 'yuezk/vim-js'
