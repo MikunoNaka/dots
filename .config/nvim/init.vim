@@ -8,7 +8,8 @@ call plug#begin('~/.local/share/nvim/plugged')
 " basic
 Plug 'itchyny/lightline.vim'
 Plug 'Yggdroot/indentLine'
-Plug 'romgrk/doom-one.vim'
+" Plug 'romgrk/doom-one.vim'
+Plug 'MikunoNaka/doom-one.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " web dev
@@ -127,3 +128,5 @@ set nowrap
 " let fc = g:firenvim_config['localSettings']
 " let fc['.*'] = { 'selector': 'textarea:not([readonly]), div[role="textbox"]' }
 " let fc['.*'] = { 'takeover': 'always' }
+"
+let g:doom_one_terminal_colors = v:true
