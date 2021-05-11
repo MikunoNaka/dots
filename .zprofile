@@ -4,7 +4,7 @@ export TERMINAL="st"
 export BROWSER="firefox"
 export READER="zathura"
 export COLORTERM="truecolor"
-export PAGER="less"
+export PAGER="bat"
 export WM="xmonad"
 
 export QT_QPA_PLATFORMTHEME=gtk2
