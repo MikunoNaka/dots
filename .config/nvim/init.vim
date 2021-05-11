@@ -89,6 +89,27 @@ set softtabstop=2
 " when indenting with '>', use 2 spaces width
 set shiftwidth=2
 
+" map leader to Space
+let mapleader = " " 
+
+" mouse support for visual, etc
+set mouse=a
+
+" copy/paste from clipboard
+" Copy to clipboard
+vnoremap  <leader>y  "+y
+nnoremap  <leader>Y  "+yg_
+nnoremap  <leader>y  "+y
+nnoremap  <leader>yy  "+yy
+
+" Paste from clipboard
+nnoremap <leader>p "+p
+nnoremap <leader>P "+P
+vnoremap <leader>p "+p
+vnoremap <leader>P "+P
+
+
+
 " set filetypes as typescriptreact
 " augroup SyntaxSettings
 "     autocmd!
@@ -128,5 +149,3 @@ set nowrap
 " let fc = g:firenvim_config['localSettings']
 " let fc['.*'] = { 'selector': 'textarea:not([readonly]), div[role="textbox"]' }
 " let fc['.*'] = { 'takeover': 'always' }
-"
-let g:doom_one_terminal_colors = v:true
