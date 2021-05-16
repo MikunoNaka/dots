@@ -2,9 +2,7 @@ import XMonad
 import qualified XMonad.StackSet as W
 import XMonad.ManageHook
 
--- xmonad-log imports import qualified DBus as D
--- import qualified DBus.Client as D
--- import qualified Codec.Binary.UTF8.String as UTF8
+-- xmonad-log imports import qualified DBus as D import qualified DBus.Client as D import qualified Codec.Binary.UTF8.String as UTF8
 
 -- data
 import Data.Tree
@@ -59,7 +57,7 @@ import XMonad.Util.NamedScratchpad
 myStartupHook :: X ()
 myStartupHook = do
           spawnOnce "start-lemonbar.sh"
-	  spawnOn   "  二  " "firefox"
+	  spawnOn   "  二  ""librewolf"
 	  -- setWMName "AnimeThighsWM"
 	  setWMName "LG3D"
           setDefaultCursor xC_left_ptr
@@ -174,9 +172,9 @@ myTreeMenu a = TS.treeselectAction a
         [ Node (TS.TSNode "Torrents" "" (spawn "qbittorrent")) []
         , Node (TS.TSNode "Discord" "" (spawn "discord-canary")) []
         , Node (TS.TSNode "LibreOffice" "" (spawn "libreoffice")) []
-    	, Node (TS.TSNode "Browsers" "" (return()))
+    	, Node (TS.TSNode "Browsers" "this menu needs to be edited lol" (return()))
             [ Node (TS.TSNode "Vivaldi" "" (spawn "vivaldi-stable")) []
-            , Node (TS.TSNode "Firefox" "" (spawn "firefox")) []
+            , Node (TS.TSNode "Firefox" "" (spawn "librewolf")) []
             , Node (TS.TSNode "Brave" "" (spawn "brave")) []
 	    ]
 	]
@@ -315,8 +313,8 @@ myKeys = [
 myKeys' :: [(String, X ())]
 myKeys' =
          [-- Running or copying browsers 
-	 ("M-i f", runOrCopy "firefox" (className =? "Firefox"))
-	 , ("M-i S-f", spawn "firefox")
+	 ("M-i f", runOrCopy "librewolf" (className =? "Firefox"))
+	 , ("M-i S-f", spawn "librewolf")
          , ("M-i b", spawn "brave")
          , ("M-i S-b", spawn "brave --incognito")
 	 -- this doesn't work when in myKeys
