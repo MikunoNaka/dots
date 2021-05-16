@@ -8,19 +8,15 @@ bindkey -v
 
 # paths
 # export PATH=/:$PATH
-export PATH=/zt/Docs/Go:$PATH
-export GOPATH="/zt/Docs/Go/"
-
-export PATH=/zt/Programs/flutter/bin:$PATH
+export PATH=/zt/.gopath:$PATH
+export PATH=/zt/.path:$PATH
 
 export PATH=/home/zt/.scripts:$PATH
-export PATH=/zt/Programs:$PATH
 export PATH=/home/zt/.local/bin:$PATH
-export PATH=/home/zt/.emacs.d/bin:$PATH
 
 export PATH=/usr/local/bin:$PATH
 
-
+export GOPATH="/zt/.gopath/"
 
 # aliases
 # directories
@@ -66,7 +62,7 @@ alias dp='dots push || ssh-v && dots push'
 
 # ssh
 alias ssh-k='eval $(ssh-agent)&& ssh-add /home/zt/.ssh/kalawati_git_key'
-alias ssh-v='eval $(ssh-agent)&& ssh-add /home/zt/.ssh/vidhukant'
+alias ssh-v='eval $(ssh-agent)&& ssh-add /home/zt/.ssh/github-mikunonaka-key'
 
 # to change title of terminal
 title() {
