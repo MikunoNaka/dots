@@ -15,4 +15,4 @@ if [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]]; then
   startx
 fi
 
-[[ -f ~/.Xmodmap ]] && xmodmap ~/.Xmodmap
+[[ -f ~/.Xmodmap ]] && xmodmap ~/.Xmodmap && xmodmap -e 'clear lock'
