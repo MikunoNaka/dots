@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<openbox_menu xmlns="http://openbox.org/3.4/menu">
+
+<menu id="my-browsers" label="Browsers">
+  <item id="librewolf" label="Librewolf">
+    <action name="Execute">
+      <command>librewolf</command>
+      <startupnotify>
+        <enabled>yes</enabled>
+      </startupnotify>
+    </action>
+  </item>
+  <item id="brave" label="Brave">
+    <action name="Execute">
+      <command>brave</command>
+      <startupnotify>
+        <enabled>yes</enabled>
+      </startupnotify>
+    </action>
+  </item>
+  <item id="qutebrowser" label="Qutebrowser">
+    <action name="Execute">
+      <command>qutebrowser</command>
+      <startupnotify>
+        <enabled>yes</enabled>
+      </startupnotify>
+    </action>
+  </item>
+</menu>
+
+<menu id="my-favourites" label="Favourites">
+  <item id="media-player" label="VLC">
+    <action name="Execute">
+      <command>vlc</command>
+      <startupnotify>
+        <enabled>yes</enabled>
+      </startupnotify>
+    </action>
+  </item>
+  <item id="gimp" label="GIMP">
+    <action name="Execute">
+      <command>gimp</command>
+      <startupnotify>
+        <enabled>yes</enabled>
+      </startupnotify>
+    </action>
+  </item>
+  <item id="discord" label="Discord">
+    <action name="Execute">
+      <command>discord</command>
+      <startupnotify>
+        <enabled>yes</enabled>
+      </startupnotify>
+    </action>
+  </item>
+  <menu id="my-browsers"/>
+</menu>
+
+<menu id="my-media" label="Media">
+  <item id="vlc" label="VLC">
+    <action name="Execute">
+      <command>vlc</command>
+      <startupnotify>
+        <enabled>yes</enabled>
+      </startupnotify>
+    </action>
+  </item>
+  <item id="gimp" label="GIMP">
+    <action name="Execute">
+      <command>gimp</command>
+      <startupnotify>
+        <enabled>yes</enabled>
+      </startupnotify>
+    </action>
+  </item>
+  <item id="kdenlive" label="Kdenlive">
+    <action name="Execute">
+      <command>kdenlive</command>
+      <startupnotify>
+        <enabled>yes</enabled>
+      </startupnotify>
+    </action>
+  </item>
+</menu>
+
+<menu id="my-accessories" label="Accessories">
+  <item id="scrcpy" label="scrcpy">
+    <action name="Execute">
+      <command>scrcpy</command>
+      <startupnotify>
+        <enabled>yes</enabled>
+      </startupnotify>
+    </action>
+  </item>
+  <item id="file-manager" label="pcmanfm">
+    <action name="Execute">
+      <command>pcmanfm</command>
+      <startupnotify>
+        <enabled>yes</enabled>
+      </startupnotify>
+    </action>
+  </item>
+  <item id="email-client" label="Thunderbird">
+    <action name="Execute">
+      <command>thunderbird</command>
+      <startupnotify>
+        <enabled>yes</enabled>
+      </startupnotify>
+    </action>
+  </item>
+  <item id="term-file-manager" label="lf">
+    <action name="Execute">
+      <command>lf</command>
+      <startupnotify>
+        <enabled>yes</enabled>
+      </startupnotify>
+    </action>
+  </item>
+  <item id="colorpicker" label="colorpicker">
+    <action name="Execute">
+      <command>colorpicker --short --one-shot --preview | xsel -b</command>
+      <startupnotify>
+        <enabled>yes</enabled>
+      </startupnotify>
+    </action>
+  </item>
+  <menu id="networking-accessories" label="networking">
+    <item id="net-file-browser" label="Konqueror">
+      <action name="Execute">
+        <command>konqueror</command>
+        <startupnotify>
+          <enabled>yes</enabled>
+        </startupnotify>
+      </action>
+    </item>
+    <item id="torrent-client" label="Qbittorrent">
+      <action name="Execute">
+        <command>qbittorrent</command>
+        <startupnotify>
+          <enabled>yes</enabled>
+        </startupnotify>
+      </action>
+    </item>
+    <menu id="my-browsers"/>
+  </menu>
+</menu>
+
+<menu id="my-utilities" label="Utilities">
+  <item id="wallpaper-browser" label="nitrogen">
+    <action name="Execute">
+      <command>nitrogen</command>
+      <startupnotify>
+        <enabled>yes</enabled>
+      </startupnotify>
+    </action>
+  </item>
+  <item id="volume-menu" label="pavucontrol">
+    <action name="Execute">
+      <command>pavucontrol</command>
+      <startupnotify>
+        <enabled>yes</enabled>
+      </startupnotify>
+    </action>
+  </item>
+  <item id="lxappearance" label="lxappearance">
+    <action name="Execute">
+      <command>lxappearance</command>
+      <startupnotify>
+        <enabled>yes</enabled>
+      </startupnotify>
+    </action>
+  </item>
+
+  <menu id="sys-monitors" label="System Monitors">
+    <item id="bashtop" label="bashtop">
+      <action name="Execute">
+        <command>st -e bashtop</command>
+        <startupnotify>
+          <enabled>yes</enabled>
+        </startupnotify>
+      </action>
+    </item>
+    <item id="htop" label="htop">
+      <action name="Execute">
+        <command>st -e htop</command>
+        <startupnotify>
+          <enabled>yes</enabled>
+        </startupnotify>
+      </action>
+    </item>
+  </menu>
+</menu>
+
+<menu id="root-menu" label="Openbox 3">
+  <item id="launch-terminal" label="st">
+    <action name="Execute">
+      <command>st</command>
+      <startupnotify>
+        <enabled>yes</enabled>
+      </startupnotify>
+    </action>
+  </item>
+
+  <separator/>
+  <menu id="my-favourites"/>
+  <menu id="my-accessories"/>
+  <menu id="my-media"/>
+  <menu id="my-utilities"/>
+
+  <separator/>
+  <item id="section-screenshot" label="Section Screenshot">
+    <action name="Execute">
+      <command>scrot -s /zt/Screenshots/Screenshot-%Y-%d-%m--%T.png</command>
+      <startupnotify>
+        <enabled>yes</enabled>
+      </startupnotify>
+    </action>
+  </item>
+  <item id="full-screenshot" label="Screenshot">
+    <action name="Execute">
+      <command>scrot /zt/Screenshots/Screenshot-%Y-%d-%m--%T.png</command>
+      <startupnotify>
+        <enabled>yes</enabled>
+      </startupnotify>
+    </action>
+  </item>
+
+  <separator/>
+  <item id="lock-screen" label="Lock Screen">
+    <action name="Execute">
+      <command>betterlockscreen -l -t 'Yo, Vidhu!'</command>
+      <startupnotify>
+        <enabled>yes</enabled>
+      </startupnotify>
+    </action>
+  </item>
+  <item label="Log Out">
+    <action name="Exit">
+      <prompt>yes</prompt>
+    </action>
+  </item>
+  <item id="shutdown" label="Shutdown">
+    <action name="Execute">
+      <command>shutdown now</command>
+      <prompt>Go away, baka!</prompt>
+    </action>
+  </item>
+</menu>
+
+</openbox_menu>
