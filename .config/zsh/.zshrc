@@ -1,7 +1,7 @@
 HISTFILE=~/.histfile
 HISTSIZE=1000
 SAVEHIST=1000
-setopt autocd beep notify
+setopt autocd notify
 bindkey -v
 # autoload -U colors && colors
 # source /home/zt/.local/zsh-autocomplete/zsh-autocomplete.plugin.zsh
