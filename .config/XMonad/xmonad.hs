@@ -399,7 +399,7 @@ myLemonbarPP  = def {
 
 main :: IO ()
 main = do
-  notXMobar <- spawnPipe "lemonbar -p -b -g 800x21+0+0  -B '#171520' -F '#ffffff' -o -3 -f 'Source Han Sans JP:size=10' -o 0 -f 'RobotoMono Nerd Font:style=Regular:size=15'"
+  notXMobar <- spawnPipe "lemonbar -p -b -g 1020x30+0+0  -B '#171520' -F '#ffffff' -o -3 -f 'Source Han Sans JP:size=14' -o 0 -f 'RobotoMono Nerd Font:style=Regular:size=18'"
   -- dbus <- D.connectSession
   -- Request access to the DBus name
   -- D.requestName dbus (D.busName_ "org.xmonad.Log")
