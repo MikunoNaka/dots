@@ -70,7 +70,7 @@ altMask :: KeyMask
 altMask = mod1Mask
 
 myTerminal :: String
-myTerminal = "st"
+myTerminal = "prime-run alacritty"
 
 myLauncher :: String
 myLauncher = "dmenu_run"
@@ -164,9 +164,9 @@ myTreeMenu a = TS.treeselectAction a
     , Node (TS.TSNode "Utilities" "" (return()))
         [ Node (TS.TSNode "Pavucontrol" "" (spawn "pavucontrol")) []
         , Node (TS.TSNode "Color Picker" "" (spawn myColorPicker)) []
-        , Node (TS.TSNode "bashtop" "" (spawn "st -e bashtop")) []
-        , Node (TS.TSNode "htop" "" (spawn "st -e htop")) []
-        , Node (TS.TSNode "lxappearance" "" (spawn "st -e lxappearance")) []
+        , Node (TS.TSNode "bashtop" "" (spawn "prime-run alacritty -e bashtop")) []
+        , Node (TS.TSNode "htop" "" (spawn "prime-run alacritty -e htop")) []
+        , Node (TS.TSNode "lxappearance" "" (spawn "lxappearance")) []
 	]
     , Node (TS.TSNode "Apps" "" (return()))
         [ Node (TS.TSNode "Torrents" "" (spawn "qbittorrent")) []
@@ -196,7 +196,7 @@ myTreeMenu a = TS.treeselectAction a
 -- scratchpad config
 myScratchpads = [
 	 NS "Phone" "scrcpy" (title =? "Motorola One Power") defaultFloating,
-	 NS "Terminal" "st -t 'TerminalScratchpad'" (title =? "TerminalScratchpad") defaultFloating,
+	 NS "Terminal" "prime-run alacritty -t 'TerminalScratchpad'" (title =? "TerminalScratchpad") defaultFloating,
 	 NS "Nitrogen" "nitrogen" (title =? "Nitrogen") defaultFloating
          ] where role = stringProperty "WM_WINDOW_ROLE"
 

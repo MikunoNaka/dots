@@ -181,7 +181,7 @@
     <!-- my keybindings -->
     <keybind key="W-Return">
       <action name="execute">
-        <command>st</command>
+        <command>prime-run alacritty</command>
       </action>
     </keybind>
 
