@@ -8,15 +8,15 @@ bindkey -v
 
 # paths
 # export PATH=/:$PATH
-export PATH=/zt/.gopath:$PATH
-export PATH=/zt/.path:$PATH
-
-export PATH=/home/zt/.scripts:$PATH
-export PATH=/home/zt/.local/bin:$PATH
-
-export PATH=/usr/local/bin:$PATH
-
-export GOPATH="/zt/.gopath/"
+# export PATH=/zt/.gopath:$PATH
+# export PATH=/zt/.path:$PATH
+# 
+# export PATH=/home/zt/.scripts:$PATH
+# export PATH=/home/zt/.local/bin:$PATH
+# 
+# export PATH=/usr/local/bin:$PATH
+# 
+# export GOPATH="/zt/.gopath/"
 
 # aliases
 # directories
@@ -61,8 +61,8 @@ alias dc='dots commit'
 alias dp='dots push || ssh-v && dots push'
 
 # ssh
-alias ssh-k='eval $(ssh-agent)&& ssh-add /home/zt/.ssh/kalawati_git_key'
-alias ssh-v='eval $(ssh-agent)&& ssh-add /home/zt/.ssh/github-mikunonaka-key'
+# alias ssh-k='eval $(ssh-agent)&& ssh-add /home/zt/.ssh/kalawati_git_key'
+alias ssh-v='eval $(ssh-agent)&& ssh-add /home/zt/.ssh/MikunoNaka-GitHub'
 
 # to change title of terminal
 title() {
