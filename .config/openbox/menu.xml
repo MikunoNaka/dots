@@ -32,7 +32,7 @@
 <menu id="my-favourites" label="Favourites">
   <item id="media-player" label="VLC">
     <action name="Execute">
-      <command>vlc</command>
+      <command>prime-run vlc</command>
       <startupnotify>
         <enabled>yes</enabled>
       </startupnotify>
@@ -40,7 +40,7 @@
   </item>
   <item id="gimp" label="GIMP">
     <action name="Execute">
-      <command>gimp</command>
+      <command>prime-run gimp</command>
       <startupnotify>
         <enabled>yes</enabled>
       </startupnotify>
@@ -60,7 +60,7 @@
 <menu id="my-media" label="Media">
   <item id="vlc" label="VLC">
     <action name="Execute">
-      <command>vlc</command>
+      <command>prime-run vlc</command>
       <startupnotify>
         <enabled>yes</enabled>
       </startupnotify>
@@ -68,7 +68,7 @@
   </item>
   <item id="gimp" label="GIMP">
     <action name="Execute">
-      <command>gimp</command>
+      <command>prime-run gimp</command>
       <startupnotify>
         <enabled>yes</enabled>
       </startupnotify>
@@ -76,7 +76,7 @@
   </item>
   <item id="kdenlive" label="Kdenlive">
     <action name="Execute">
-      <command>kdenlive</command>
+      <command>prime-run kdenlive</command>
       <startupnotify>
         <enabled>yes</enabled>
       </startupnotify>
@@ -196,6 +196,14 @@
   <item id="launch-terminal" label="st">
     <action name="Execute">
       <command>st</command>
+      <startupnotify>
+        <enabled>yes</enabled>
+      </startupnotify>
+    </action>
+  </item>
+  <item id="launch-terminal" label="alacritty">
+    <action name="Execute">
+      <command>prime-run alacritty</command>
       <startupnotify>
         <enabled>yes</enabled>
       </startupnotify>
