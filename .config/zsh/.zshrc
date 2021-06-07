@@ -73,6 +73,8 @@ title() {
 srecord() {
   ffmpeg -f x11grab -s 1366x768 -i :0.0 $@
 }
+# get webcam output in mpv
+alias webcam="mpv av://v4l2:/dev/video0 --profile=low-latency --untimed"
 
 neofetch
 exa
