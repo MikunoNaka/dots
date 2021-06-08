@@ -154,7 +154,7 @@
      Many programs reserve space automatically, but you can use this in other
      cases. -->
   <margins>
-    <top>0</top>
+    <top>35</top>
     <bottom>0</bottom>
     <left>0</left>
     <right>0</right>
@@ -191,7 +191,7 @@
     </keybind>
     <keybind key="W-S-Return">
       <action name="execute">
-        <command>scrot /home/zt/Media/Screenshots/Screenshot-%Y-%d-%m--%T.png</command>
+        <command>scrot /home/zt/Media/Screenshots/Screenshot-%m-%d-%Y-%T.png</command>
         <startupnotify>
           <enabled>yes</enabled>
         </startupnotify>

@@ -180,7 +180,7 @@
       </startupnotify>
     </action>
   </item>
-  <item id="blueman" label="pavucontrol">
+  <item id="blueman" label="blueman">
     <action name="Execute">
       <command>blueman-manager</command>
       <startupnotify>
@@ -236,7 +236,7 @@
   <separator/>
   <item id="section-screenshot" label="Section Screenshot">
     <action name="Execute">
-      <command>scrot -s /zt/Screenshots/Screenshot-%Y-%d-%m--%T.png</command>
+      <command>scrot -s /zt/Screenshots/Screenshot-%m-%d-%Y-%T.png</command>
       <startupnotify>
         <enabled>yes</enabled>
       </startupnotify>
@@ -244,7 +244,7 @@
   </item>
   <item id="full-screenshot" label="Screenshot">
     <action name="Execute">
-      <command>scrot /zt/Screenshots/Screenshot-%Y-%d-%m--%T.png</command>
+      <command>scrot /zt/Screenshots/Screenshot-%m-%d-%Y-%T.png</command>
       <startupnotify>
         <enabled>yes</enabled>
       </startupnotify>

@@ -51,7 +51,7 @@ import XMonad.Util.NamedScratchpad
 
 myStartupHook :: X ()
 myStartupHook = do
-                spawnOn   "  二  ""librewolf"
+                -- spawnOn   "二" "librewolf"
                 spawnOnce "polybar mybar"
                 setWMName "LG3D"
                 setDefaultCursor xC_left_ptr
@@ -85,7 +85,7 @@ myLockscreen :: String
 myLockscreen = "betterlockscreen -l -t 'Yo, Vidhu!'"
 
 myScreenshot :: String
-myScreenshot = "scrot /home/zt/Media/Screenshots/Screenshot-%Y-%d-%m--%T.png"
+myScreenshot = "scrot /home/zt/Media/Screenshots/Screenshot-%m-%d-%Y-%T.png"
 
 myColorPicker :: String
 myColorPicker = "colorpicker --short --one-shot --preview | xsel -b"
@@ -102,7 +102,7 @@ myVolMute = "pamixer -m && killall lemonblocks -5"
 
 
 myFont :: String
-myFont = "xft:Hack:style=Regular:size=12"
+myFont = "xft:Hack:style=Regular:size=14"
 
 fBorder = "#bf00ff"
 -- fBorder = "#3804f4"
@@ -130,8 +130,6 @@ defaultNavigation = M.fromList
     , ((0, xK_j),      TS.moveNext)
     , ((0, xK_h),      TS.moveParent)
     , ((0, xK_l),      TS.moveChild)
-    , ((0, xK_o),      TS.moveHistBack)
-    , ((0, xK_i),      TS.moveHistForward)
     ]
 
 myTSConfig = TS.TSConfig { TS.ts_hidechildren = False
@@ -141,9 +139,9 @@ myTSConfig = TS.TSConfig { TS.ts_hidechildren = False
                            , TS.ts_nodealt      = (0xffd0d0d0, 0xff282c34)
                            , TS.ts_highlight    = (0xffffffff, 0xff755999)
                            , TS.ts_extra        = 0xffd0d0d0
-                           , TS.ts_node_width   = 200
-                           , TS.ts_node_height  = 28
-                           , TS.ts_originX      = 100
+                           , TS.ts_node_width   = 220
+                           , TS.ts_node_height  = 34
+                           , TS.ts_originX      = 10000
                            , TS.ts_originY      = 100
                            , TS.ts_indent       = 80
                            , TS.ts_navigate     = TS.defaultNavigation
@@ -151,38 +149,36 @@ myTSConfig = TS.TSConfig { TS.ts_hidechildren = False
 
 myTreeMenu :: TS.TSConfig (X ()) -> X ()
 myTreeMenu a = TS.treeselectAction a
-    [ Node (TS.TSNode "Section Screenshot" "Take screenshot of a section on the screen" (spawn "scrot -s /home/zt/Media/Screenshots/Screenshot-%Y-%d-%m--%T.png")) []
-    , Node (TS.TSNode "Utilities" "" (return()))
-        [ Node (TS.TSNode "Pavucontrol" "" (spawn "pavucontrol")) []
-        , Node (TS.TSNode "Color Picker" "" (spawn myColorPicker)) []
-        , Node (TS.TSNode "bashtop" "" (spawn "prime-run alacritty -e bashtop")) []
-        , Node (TS.TSNode "htop" "" (spawn "prime-run alacritty -e htop")) []
-        , Node (TS.TSNode "lxappearance" "" (spawn "lxappearance")) []
-	]
-    , Node (TS.TSNode "Apps" "" (return()))
-        [ Node (TS.TSNode "Torrents" "" (spawn "qbittorrent")) []
-        , Node (TS.TSNode "Discord" "" (spawn "discord-canary")) []
-        , Node (TS.TSNode "LibreOffice" "" (spawn "libreoffice")) []
-    	, Node (TS.TSNode "Browsers" "this menu needs to be edited lol" (return()))
-            [ Node (TS.TSNode "Vivaldi" "" (spawn "vivaldi-stable")) []
-            , Node (TS.TSNode "Firefox" "" (spawn "librewolf")) []
-            , Node (TS.TSNode "Brave" "" (spawn "brave")) []
-	    ]
-	]
-    , Node (TS.TSNode "Other" "" (return()))
-        [ Node (TS.TSNode "Recompile XMonad" "Recompile and restart the window manager" (spawn "xmonad --recompile && xmonad --restart")) []
-        , Node (TS.TSNode "Launch DMenu" "just in case the keybinding doesn't work" (spawn "run_dmenu")) []
-        , Node (TS.TSNode "Restart server" "Restart startpage server" (spawn "killall startpage-server;startpage-server")) []
-        , Node (TS.TSNode "notify" "send a notification" (spawn "notify-send 'This is a notification' 'Hello World!'")) []
-	]
-    , Node (TS.TSNode "Power" "" (return()))
-        [ Node (TS.TSNode "Shutdown" "It's not like I'll miss you b- baka!" (spawn "shutdown now")) []
-        , Node (TS.TSNode "Reboot" "What are you doing!" (spawn "reboot")) []
-        , Node (TS.TSNode "Cancel" "Yamete kudasai" (return())) []
-	]
+    [ Node (TS.TSNode         "Section Screenshot" "" (spawn "scrot -s /home/zt/Media/Screenshots/Screenshot-%m-%d-%Y-%T.png")) []
+    , Node (TS.TSNode         "Accessories"        "" (return()))
+        [ Node (TS.TSNode     "Scrcpy"             "" (spawn "scrcpy")) []
+        , Node (TS.TSNode     "Pcmanfm"            "" (spawn "pcmanfm")) []
+        , Node (TS.TSNode     "Thunderbird"        "" (spawn "thunderbird")) []
+        , Node (TS.TSNode     "lf"                 "" (spawn "prime-run alacritty -e lf")) []
+        , Node (TS.TSNode     "colorpicker"        "" (spawn "lxappearance")) []
+        , Node (TS.TSNode     "networking"         "" (return()))
+            [ Node (TS.TSNode "Konqueror"          "" (spawn "konqueror")) []
+            , Node (TS.TSNode "Qbittorrent"        "" (spawn "qbittorrent")) []
+            , Node (TS.TSNode "Blueman"            "" (spawn "blueman-manager")) []
+            ]
+        ]
+    , Node (TS.TSNode         "Media"              "" (return()))
+        [ Node (TS.TSNode     "VLC"                "" (spawn "prime-run vlc")) []
+        , Node (TS.TSNode     "GIMP"               "" (spawn "prime-run gimp")) []
+        , Node (TS.TSNode     "Kdenlive"           "" (spawn "prime-run kdenlive")) []
+        ]
+    , Node (TS.TSNode         "Utilities"          "" (return()))
+        [ Node (TS.TSNode     "Nitrogen"           "" (spawn "nitrogen")) []
+        , Node (TS.TSNode     "Pavucontrol"        "" (spawn "pavucontrol")) []
+        , Node (TS.TSNode     "Blueman"            "" (spawn "blueman-manager")) []
+        , Node (TS.TSNode     "Lxappearance"       "" (spawn "lxappearance")) []
+        ]
+    , Node (TS.TSNode         "Secreenshot"        "" (spawn "scrot /home/zt/Media/Screenshots/Screenshot-%m-%d-%Y-%T.png")) []
+    , Node (TS.TSNode         "Power"              "" (return()))
+        [ Node (TS.TSNode     "Shutdown"           "" (spawn "shutdown now")) []
+        , Node (TS.TSNode     "Restart"            "" (spawn "restart")) []
+        ]
     ]
-
-
 
 -- scratchpad config
 myScratchpads = [
@@ -212,8 +208,8 @@ myKeys = [
 	
 	 -- launch/copy apps
          , ((myModMask .|. shiftMask, xK_o), runOrCopy "pcmanfm" (className =? "Pcmanfm"))
-         , ((myModMask, xK_m), runOrCopy "vlc" (className =? "vlc"))
-         , ((myModMask .|. shiftMask, xK_m), spawnOn "  十  " "vlc")
+         , ((myModMask, xK_m), runOrCopy "prime-run vlc" (className =? "vlc"))
+         , ((myModMask .|. shiftMask, xK_m), spawn ("prime-run vlc"))
 
 
 	 -- scratchpad keybindings
