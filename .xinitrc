@@ -27,8 +27,11 @@ fi
 nitrogen --restore &
 picom &
 dunst &
-polybar mybar &
+cbatticon &
 #xmodmap .Xmodmap
+
+# launch this from wm or it'll crash
+# polybar mybar &
 
 case $1 in 
   xmonad)       exec xmonad ;;
