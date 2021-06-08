@@ -42,7 +42,7 @@
   <theme>
     <name>Dracula-withoutBorder</name>
     <!--titleLayout>NLIMC</titleLayout-->
-    <titleLayout>CMILSD</titleLayout>
+    <titleLayout>CMLD</titleLayout>
     <!--
       available characters are NDSLIMC, each can occur at most once.
       N: window icon
@@ -184,7 +184,6 @@
         <command>prime-run alacritty</command>
       </action>
     </keybind>
-
     <keybind key="W-S-p">
       <action name="execute">
         <command>dmenu_run</command>
@@ -193,17 +192,16 @@
     <keybind key="W-S-Return">
       <action name="execute">
         <command>scrot /home/zt/Media/Screenshots/Screenshot-%Y-%d-%m--%T.png</command>
-        <startupnotify> 
-          <enabled>yes</enabled> 
+        <startupnotify>
+          <enabled>yes</enabled>
         </startupnotify>
       </action>
     </keybind>
-
     <keybind key="W-q">
       <action name="execute">
         <command>betterlockscreen -l -t 'Vidhu\'s openbox'</command>
-        <startupnotify> 
-          <enabled>yes</enabled> 
+        <startupnotify>
+          <enabled>yes</enabled>
         </startupnotify>
       </action>
     </keybind>
@@ -212,7 +210,6 @@
         <prompt>yes</prompt>
       </action>
     </keybind>
-
     <chainQuitKey>C-g</chainQuitKey>
     <!-- Keybindings for desktop switching -->
     <keybind key="A-h">

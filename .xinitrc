@@ -27,15 +27,15 @@ fi
 nitrogen --restore &
 picom &
 dunst &
+polybar mybar &
 #xmodmap .Xmodmap
 
-echo $1 >> /tmp/pepe
-
 case $1 in 
-  xmonad)  exec xmonad ;;
-  openbox) exec openbox-session ;;
-  *)       exec xmonad ;;
+  xmonad)       exec xmonad ;;
+  # openbox)      exec openbox-session & tint2 ;;
+  openbox)      exec openbox-session ;;
+  bspwm)        exec bspwm ;;
+  herbstluftwm) exec herbstluftwm ;;
+  spectrwm)     exec spectrwm ;;
+  *)            exec xmonad ;;
 esac
-
-
-# exec xmonad

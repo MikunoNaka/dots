@@ -2,11 +2,6 @@ import XMonad
 import qualified XMonad.StackSet as W
 import XMonad.ManageHook
 
--- xmonad-log imports 
--- import qualified DBus as D
--- import qualified DBus.Client as D 
--- import qualified Codec.Binary.UTF8.String as UTF8
-
 -- data
 import Data.Tree
 import qualified Data.Map as M
@@ -22,13 +17,12 @@ import XMonad.Actions.MouseResize
 import XMonad.Actions.SpawnOn
 import qualified XMonad.Actions.TreeSelect as TS
 
--- layouts modifiers
+-- layout modifiers
 import XMonad.Layout.Spacing
 import XMonad.Layout.LayoutModifier
 import XMonad.Layout.WindowNavigation as WN
 import XMonad.Layout.Renamed as R (renamed, Rename(Replace))
 import XMonad.Layout.Maximize
--- import XMonad.Layout.PerWorkspace
 import XMonad.Layout.Fullscreen
 
 -- Layouts
@@ -37,7 +31,7 @@ import XMonad.Layout.Grid
 import XMonad.Layout.ThreeColumns
 import XMonad.Layout.TwoPane
 import XMonad.Layout.ResizableTile
-import XMonad.Layout.Tabbed -- fix this it doesnt work
+import XMonad.Layout.Tabbed
 import XMonad.Layout.NoBorders
 import XMonad.Layout.Accordion
 import XMonad.Layout.ZoomRow
@@ -45,7 +39,6 @@ import XMonad.Layout.ZoomRow
 -- hooks
 import XMonad.Hooks.SetWMName
 import XMonad.Hooks.ManageDocks
--- import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops (ewmh)
 
 -- utilities
@@ -56,17 +49,14 @@ import XMonad.Util.Paste
 import XMonad.Util.Run
 import XMonad.Util.NamedScratchpad
 
-
 myStartupHook :: X ()
 myStartupHook = do
-                -- spawnOnce "start-lemonbar.sh"
                 spawnOn   "  二  ""librewolf"
-                -- setWMName "AnimeThighsWM"
                 setWMName "LG3D"
                 setDefaultCursor xC_left_ptr
 
 -- defaults
--- myModMask :: KeyMask
+myModMask :: KeyMask
 myModMask = mod4Mask 
 
 altMask :: KeyMask
@@ -362,52 +352,17 @@ myLayoutHook = avoidStruts ( -- layouts to be used in almost every workspace
         ||| renamed [R.Replace "ThreeCol (2)"]     (maximize $ smartBorders $ windowNavigation $ myGap $ ThreeCol 2 (3/100) (1/2))
         )
 
--- myLemonbarPP :: D.Client -> PP
--- myLemonbarPP dbus = def { ppOutput = dbusOutput dbus
--- myLemonbarPP  = def {
---                    ppCurrent = wrap "%{B#d33682}%{F-}" "%{B-}" 
---                    , ppWsSep = ""
---                    , ppHidden = wrap "%{F#02fc45}%{B#130F23}" "%{B-}%{f-}"
---                    , ppHiddenNoWindows = wrap "%{F#268bd2}" "%{F-}"
---                    , ppTitle = wrap " %{B#130F23}%{F#6c71c4}  " "  %{F-}%{B-}" . shorten 60
---                    , ppUrgent = wrap "%{B#9cfc02}    " "    %{B-}%{F-}"
---                    , ppLayout = wrap "%{B#130F23}%{F#cb31d6} " " %{F-}%{B-}"
---                    , ppSep =  " "
---                    , ppOrder  = \(ws:l:t:ex) -> [ws]++[l]++[t]++ex
---                    }
-
--- dbusOutput :: D.Client -> String -> IO ()
--- dbusOutput dbus str = do
---     let signal = (D.signal objectPath interfaceName memberName) {
---             D.signalBody = [D.toVariant $ UTF8.decodeString str]
---         }
---     D.emit dbus signal
---   where
---     objectPath = D.objectPath_ "/org/xmonad/Log"
---     interfaceName = D.interfaceName_ "org.xmonad.Log"
---     memberName = D.memberName_ "Update"
-
 main :: IO ()
 main = do
-  -- notXMobar <- spawnPipe "lemonbar -p -b -g 1020x30+0+0  -B '#171520' -F '#ffffff' -o -3 -f 'Source Han Sans JP:size=14' -o 0 -f 'RobotoMono Nerd Font:style=Regular:size=18'"
-  -- dbus <- D.connectSession
-  -- Request access to the DBus name
-  -- D.requestName dbus (D.busName_ "org.xmonad.Log")
-  --     [D.nameAllowReplacement, D.nameReplaceExisting, D.nameDoNotQueue]
-  xmonad $ ewmh $ docks $ fullscreenSupport def
-    {
-  terminal           = myTerminal,
-  focusFollowsMouse  = True,
-  borderWidth        = myBorderWidth,
-  modMask            = myModMask,
-  workspaces         = myWorkspaces,
-  normalBorderColor  = nBorder,
-  focusedBorderColor = fBorder,
-  layoutHook         = myLayoutHook,
-  manageHook         = manageSpawn <+> namedScratchpadManageHook myScratchpads <+> manageDocks,
-  -- handleEventHook    = handleEventHook def <+> fullscreenEventHook,
-
-  -- logHook = dynamicLogWithPP (myLemonbarPP dbus),
-  -- logHook            = dynamicLogWithPP myLemonbarPP { ppOutput = \x -> hPutStrLn notXMobar x}, 
-  startupHook        = myStartupHook
+  xmonad $ ewmh $ docks $ fullscreenSupport def {
+    terminal           = myTerminal
+    , focusFollowsMouse  = True
+    , borderWidth        = myBorderWidth
+    , modMask            = myModMask
+    , workspaces         = myWorkspaces
+    , normalBorderColor  = nBorder
+    , focusedBorderColor = fBorder
+    , layoutHook         = myLayoutHook
+    , manageHook         = manageSpawn <+> namedScratchpadManageHook myScratchpads <+> manageDocks
+    , startupHook        = myStartupHook
 } `additionalMouseBindings` myMouseBindings `additionalKeys` myKeys `additionalKeysP` myKeys'
