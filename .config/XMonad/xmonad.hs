@@ -2,7 +2,10 @@ import XMonad
 import qualified XMonad.StackSet as W
 import XMonad.ManageHook
 
--- xmonad-log imports import qualified DBus as D import qualified DBus.Client as D import qualified Codec.Binary.UTF8.String as UTF8
+-- xmonad-log imports 
+-- import qualified DBus as D
+-- import qualified DBus.Client as D 
+-- import qualified Codec.Binary.UTF8.String as UTF8
 
 -- data
 import Data.Tree
@@ -26,6 +29,7 @@ import XMonad.Layout.WindowNavigation as WN
 import XMonad.Layout.Renamed as R (renamed, Rename(Replace))
 import XMonad.Layout.Maximize
 -- import XMonad.Layout.PerWorkspace
+import XMonad.Layout.Fullscreen
 
 -- Layouts
 import XMonad.Layout.BinarySpacePartition as BSP
@@ -39,11 +43,12 @@ import XMonad.Layout.Accordion
 import XMonad.Layout.ZoomRow
 
 
+
 -- hooks
 import XMonad.Hooks.SetWMName
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.DynamicLog
-import XMonad.Hooks.EwmhDesktops
+import XMonad.Hooks.EwmhDesktops (ewmh)
 
 -- utilities
 import XMonad.Util.SpawnOnce
@@ -91,20 +96,20 @@ myLockscreen :: String
 myLockscreen = "betterlockscreen -l -t 'Yo, Vidhu!'"
 
 myScreenshot :: String
-myScreenshot = "scrot /zt/Screenshots/Screenshot-%Y-%d-%m--%T.png"
+myScreenshot = "scrot /home/zt/Media/Screenshots/Screenshot-%Y-%d-%m--%T.png"
 
 myColorPicker :: String
 myColorPicker = "colorpicker --short --one-shot --preview | xsel -b"
 
 -- volume
 myVolUp :: String
-myVolUp = "pulseaudio-ctl up && killall lemonblocks -5"
+myVolUp = "pamixer -i 2 && killall lemonblocks -5"
 
 myVolDown :: String
-myVolDown = "pulseaudio-ctl down && killall lemonblocks -5"
+myVolDown = "pamixer -d 2 && killall lemonblocks -5"
 
 myVolMute :: String
-myVolMute = "pulseaudio-ctl mute && killall lemonblocks -5"
+myVolMute = "pamixer -m && killall lemonblocks -5"
 
 
 myFont :: String
@@ -113,18 +118,18 @@ myFont = "xft:Hack:style=Regular:size=12"
 
 -- wm variables
 
--- fBorder = "#bf00ff"
+fBorder = "#bf00ff"
 -- fBorder = "#3804f4"
-fBorder = "#00ff85"
+-- fBorder = "#00ff85"
 nBorder = "#130F23"
 
-myBorderWidth = 1
+myBorderWidth = 2
 
 sGap = 1 -- screen gap
 wGap = 2 -- window gap
 
-myExtraWorkspaces = [(xK_0, "  十  ")] -- , (xK_comma, "  十一  "), (xK_period, "  十二  "), (xK_slash, "  十三  ")]
-myWorkspaces = ["  一  ","  二  ","  三  ","  四  ","  五  ","  六  ","  七  ","  八  ", "  九  "] ++ (map snd myExtraWorkspaces)
+myExtraWorkspaces = [(xK_0, "十")] -- , (xK_comma, "  十一  "), (xK_period, "  十二  "), (xK_slash, "  十三  ")]
+myWorkspaces = ["一", "二", "三", "四", "五", "六", "七", "八", "九"] ++ (map snd myExtraWorkspaces)
 
 -- treeselect config
 defaultNavigation = M.fromList
@@ -160,7 +165,7 @@ myTSConfig = TS.TSConfig { TS.ts_hidechildren = False
 
 myTreeMenu :: TS.TSConfig (X ()) -> X ()
 myTreeMenu a = TS.treeselectAction a
-    [ Node (TS.TSNode "Section Screenshot" "Take screenshot of a section on the screen" (spawn "scrot -s /zt/Screenshots/Screenshot-%Y-%d-%m--%T.png")) []
+    [ Node (TS.TSNode "Section Screenshot" "Take screenshot of a section on the screen" (spawn "scrot -s /home/zt/Media/Screenshots/Screenshot-%Y-%d-%m--%T.png")) []
     , Node (TS.TSNode "Utilities" "" (return()))
         [ Node (TS.TSNode "Pavucontrol" "" (spawn "pavucontrol")) []
         , Node (TS.TSNode "Color Picker" "" (spawn myColorPicker)) []
@@ -204,6 +209,7 @@ myScratchpads = [
 -- keybindings
 myKeys = [
          ((myModMask, xK_Return), spawn (myTerminal))
+	 , ((0, xK_Print), spawn (myScreenshot))
 	 , ((myModMask .|. shiftMask, xK_Return), spawn (myScreenshot))
 	 , ((myModMask, xK_q), spawn (myLockscreen))
 	 , ((myModMask, xK_n), spawn ("dunstctl close-all"))
@@ -223,10 +229,6 @@ myKeys = [
          , ((myModMask, xK_m), runOrCopy "vlc" (className =? "vlc"))
          , ((myModMask .|. shiftMask, xK_m), spawnOn "  十  " "vlc")
 
-         -- volume
-         , ((altMask, xK_0), spawn (myVolMute))
-         , ((altMask, xK_minus), spawn (myVolDown))
-         , ((altMask, xK_equal), spawn (myVolUp))
 
 	 -- scratchpad keybindings
 	 , ((myModMask, xK_u), namedScratchpadAction myScratchpads "Phone")
@@ -311,29 +313,27 @@ myKeys = [
 	 ]
 -- Emacs style keybindings
 myKeys' :: [(String, X ())]
-myKeys' =
-         [-- Running or copying browsers 
-	 ("M-i f", runOrCopy "librewolf" (className =? "Firefox"))
-	 , ("M-i S-f", spawn "librewolf")
+myKeys' = [-- Running or copying browsers 
+	       ("M-i f", runOrCopy "librewolf" (className =? "Firefox"))
+	       , ("M-i S-f", spawn "librewolf")
          , ("M-i b", spawn "brave")
          , ("M-i S-b", spawn "brave --incognito")
-	 -- this doesn't work when in myKeys
-	 , ("M-c", spawn myColorPicker)
-	 -- Launchers
+	       -- this doesn't work when in myKeys
+	       , ("M-c", spawn myColorPicker)
+	       -- Launchers
          , ("M-p", myTreeMenu myTSConfig)
-	 , ("M-S-p", spawn myLauncher)
-	 -- GridSelect
-	 , ("M-g g", goToSelected defaultGSConfig)
-	 , ("M-g b", bringSelected defaultGSConfig)
+	       , ("M-S-p", spawn myLauncher)
+	       -- GridSelect
+	       , ("M-g g", goToSelected defaultGSConfig)
+	       , ("M-g b", bringSelected defaultGSConfig)
+         -- volume
+         , ("<XF86AudioMute>",        spawn (myVolMute))
+         , ("<XF86AudioLowerVolume>", spawn (myVolDown))
+         , ("<XF86AudioRaiseVolume>", spawn (myVolUp))
 	 ]
 -- mouse keybindings
--- 1, 2, 3 = left, middle, right
-myMouseBindings = [((altMask, 2), \w -> kill1)
-         -- , ((altMask, 1), \w -> spawn "pcmanfm")
-         -- , ((altMask, 3), \w -> spawn "konqueror")
-         , ((altMask, 2), \w -> spawn myVolMute)
-         , ((altMask, 4), \w -> spawn myVolDown)
-         , ((altMask, 5), \w -> spawn myVolUp)
+myMouseBindings = [
+         ((altMask, 2), \w -> kill1)
          , ((myModMask, 4), \w -> prevWS)
          , ((myModMask, 5), \w -> nextWS)
          ]
@@ -404,7 +404,7 @@ main = do
   -- Request access to the DBus name
   -- D.requestName dbus (D.busName_ "org.xmonad.Log")
   --     [D.nameAllowReplacement, D.nameReplaceExisting, D.nameDoNotQueue]
-  xmonad $ docks def
+  xmonad $ ewmh $ docks $ fullscreenSupport def
     {
   terminal           = myTerminal,
   focusFollowsMouse  = True,
@@ -414,8 +414,8 @@ main = do
   normalBorderColor  = nBorder,
   focusedBorderColor = fBorder,
   layoutHook         = myLayoutHook,
-  manageHook         = manageSpawn <+> namedScratchpadManageHook myScratchpads,
-  handleEventHook    = handleEventHook def <+> fullscreenEventHook,
+  manageHook         = manageSpawn <+> namedScratchpadManageHook myScratchpads <+> manageDocks,
+  -- handleEventHook    = handleEventHook def <+> fullscreenEventHook,
 
   -- logHook = dynamicLogWithPP (myLemonbarPP dbus),
   logHook            = dynamicLogWithPP myLemonbarPP { ppOutput = \x -> hPutStrLn notXMobar x}, 

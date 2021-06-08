@@ -142,8 +142,25 @@
         </startupnotify>
       </action>
     </item>
+    <item id="bluetooth" label="blueman">
+      <action name="Execute">
+        <command>blueman-manager</command>
+        <startupnotify>
+          <enabled>yes</enabled>
+        </startupnotify>
+      </action>
+    </item>
     <menu id="my-browsers"/>
   </menu>
+  <item id="launch-terminal" label="st">
+    <action name="Execute">
+      <command>st</command>
+      <startupnotify>
+        <enabled>yes</enabled>
+      </startupnotify>
+    </action>
+  </item>
+
 </menu>
 
 <menu id="my-utilities" label="Utilities">
@@ -163,6 +180,14 @@
       </startupnotify>
     </action>
   </item>
+  <item id="blueman" label="pavucontrol">
+    <action name="Execute">
+      <command>blueman-manager</command>
+      <startupnotify>
+        <enabled>yes</enabled>
+      </startupnotify>
+    </action>
+  </item>
   <item id="lxappearance" label="lxappearance">
     <action name="Execute">
       <command>lxappearance</command>
@@ -175,7 +200,7 @@
   <menu id="sys-monitors" label="System Monitors">
     <item id="bashtop" label="bashtop">
       <action name="Execute">
-        <command>st -e bashtop</command>
+        <command>prime-run alacritty -e bashtop</command>
         <startupnotify>
           <enabled>yes</enabled>
         </startupnotify>
@@ -183,7 +208,7 @@
     </item>
     <item id="htop" label="htop">
       <action name="Execute">
-        <command>st -e htop</command>
+        <command>prime-run alacritty -e htop</command>
         <startupnotify>
           <enabled>yes</enabled>
         </startupnotify>
@@ -193,14 +218,6 @@
 </menu>
 
 <menu id="root-menu" label="Openbox 3">
-  <item id="launch-terminal" label="st">
-    <action name="Execute">
-      <command>st</command>
-      <startupnotify>
-        <enabled>yes</enabled>
-      </startupnotify>
-    </action>
-  </item>
   <item id="launch-terminal" label="alacritty">
     <action name="Execute">
       <command>prime-run alacritty</command>
@@ -233,7 +250,6 @@
       </startupnotify>
     </action>
   </item>
-
   <separator/>
   <item id="lock-screen" label="Lock Screen">
     <action name="Execute">
