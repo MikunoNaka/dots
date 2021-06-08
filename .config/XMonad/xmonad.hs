@@ -42,12 +42,10 @@ import XMonad.Layout.NoBorders
 import XMonad.Layout.Accordion
 import XMonad.Layout.ZoomRow
 
-
-
 -- hooks
 import XMonad.Hooks.SetWMName
 import XMonad.Hooks.ManageDocks
-import XMonad.Hooks.DynamicLog
+-- import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops (ewmh)
 
 -- utilities
@@ -61,11 +59,11 @@ import XMonad.Util.NamedScratchpad
 
 myStartupHook :: X ()
 myStartupHook = do
-          spawnOnce "start-lemonbar.sh"
-	  spawnOn   "  二  ""librewolf"
-	  -- setWMName "AnimeThighsWM"
-	  setWMName "LG3D"
-          setDefaultCursor xC_left_ptr
+                -- spawnOnce "start-lemonbar.sh"
+                spawnOn   "  二  ""librewolf"
+                -- setWMName "AnimeThighsWM"
+                setWMName "LG3D"
+                setDefaultCursor xC_left_ptr
 
 -- defaults
 -- myModMask :: KeyMask
@@ -115,9 +113,6 @@ myVolMute = "pamixer -m && killall lemonblocks -5"
 myFont :: String
 myFont = "xft:Hack:style=Regular:size=12"
 
-
--- wm variables
-
 fBorder = "#bf00ff"
 -- fBorder = "#3804f4"
 -- fBorder = "#00ff85"
@@ -125,8 +120,8 @@ nBorder = "#130F23"
 
 myBorderWidth = 2
 
-sGap = 1 -- screen gap
-wGap = 2 -- window gap
+sGap = 4 -- screen gap
+wGap = 10 -- window gap
 
 myExtraWorkspaces = [(xK_0, "十")] -- , (xK_comma, "  十一  "), (xK_period, "  十二  "), (xK_slash, "  十三  ")]
 myWorkspaces = ["一", "二", "三", "四", "五", "六", "七", "八", "九"] ++ (map snd myExtraWorkspaces)
@@ -352,10 +347,6 @@ myTabTheme = def { fontName            = myFont
 -- layouts
 myGap = spacingRaw True (Border sGap sGap sGap sGap) True (Border wGap wGap wGap wGap) True
 
-
--- myLayoutHook = onWorkspaces ["  二  ","  九  ","  十  "] altLayouts $ onWorkspaces ["  一  ","  三  ","  四  ","  五  ","  六  ","  七  ","  八  "] defLayouts
--- myLayoutHook = onWorkspace "  二  " renamed [R.Replace "Tabbed"] (avoidstruts $ smartBorders $ windowNavigation $ myGap $ tabbed shrinkText myTabTheme) ||| defLayouts
-
 myLayoutHook = avoidStruts ( -- layouts to be used in almost every workspace
         renamed [R.Replace "BSP"]                  (maximize $ smartBorders $ windowNavigation $ myGap $ emptyBSP)
         ||| renamed [R.Replace "Tabbed"]           (maximize $ smartBorders $ windowNavigation $ myGap $ tabbed shrinkText myTabTheme)
@@ -369,22 +360,21 @@ myLayoutHook = avoidStruts ( -- layouts to be used in almost every workspace
         ||| renamed [R.Replace "ThreeCol (1)"]     (maximize $ smartBorders $ windowNavigation $ myGap $ ThreeCol 1 (3/100) (1/2))
         ||| renamed [R.Replace "Tabbed"]           (maximize $ smartBorders $ windowNavigation $ myGap $ tabbed shrinkText myTabTheme)
         ||| renamed [R.Replace "ThreeCol (2)"]     (maximize $ smartBorders $ windowNavigation $ myGap $ ThreeCol 2 (3/100) (1/2))
-	-- ||| onWorkspace "  二  " renamed [R.Replace "Tabbed"]           (smartBorders $ windowNavigation $ myGap $ tabbed shrinkText myTabTheme)
         )
 
 -- myLemonbarPP :: D.Client -> PP
 -- myLemonbarPP dbus = def { ppOutput = dbusOutput dbus
-myLemonbarPP  = def {
-                   ppCurrent = wrap "%{B#d33682}%{F-}" "%{B-}" 
-                   , ppWsSep = ""
-                   , ppHidden = wrap "%{F#02fc45}%{B#130F23}" "%{B-}%{f-}"
-                   , ppHiddenNoWindows = wrap "%{F#268bd2}" "%{F-}"
-                   , ppTitle = wrap " %{B#130F23}%{F#6c71c4}  " "  %{F-}%{B-}" . shorten 60
-                   , ppUrgent = wrap "%{B#9cfc02}    " "    %{B-}%{F-}"
-                   , ppLayout = wrap "%{B#130F23}%{F#cb31d6} " " %{F-}%{B-}"
-                   , ppSep =  " "
-                   , ppOrder  = \(ws:l:t:ex) -> [ws]++[l]++[t]++ex
-                   }
+-- myLemonbarPP  = def {
+--                    ppCurrent = wrap "%{B#d33682}%{F-}" "%{B-}" 
+--                    , ppWsSep = ""
+--                    , ppHidden = wrap "%{F#02fc45}%{B#130F23}" "%{B-}%{f-}"
+--                    , ppHiddenNoWindows = wrap "%{F#268bd2}" "%{F-}"
+--                    , ppTitle = wrap " %{B#130F23}%{F#6c71c4}  " "  %{F-}%{B-}" . shorten 60
+--                    , ppUrgent = wrap "%{B#9cfc02}    " "    %{B-}%{F-}"
+--                    , ppLayout = wrap "%{B#130F23}%{F#cb31d6} " " %{F-}%{B-}"
+--                    , ppSep =  " "
+--                    , ppOrder  = \(ws:l:t:ex) -> [ws]++[l]++[t]++ex
+--                    }
 
 -- dbusOutput :: D.Client -> String -> IO ()
 -- dbusOutput dbus str = do
@@ -399,7 +389,7 @@ myLemonbarPP  = def {
 
 main :: IO ()
 main = do
-  notXMobar <- spawnPipe "lemonbar -p -b -g 1020x30+0+0  -B '#171520' -F '#ffffff' -o -3 -f 'Source Han Sans JP:size=14' -o 0 -f 'RobotoMono Nerd Font:style=Regular:size=18'"
+  -- notXMobar <- spawnPipe "lemonbar -p -b -g 1020x30+0+0  -B '#171520' -F '#ffffff' -o -3 -f 'Source Han Sans JP:size=14' -o 0 -f 'RobotoMono Nerd Font:style=Regular:size=18'"
   -- dbus <- D.connectSession
   -- Request access to the DBus name
   -- D.requestName dbus (D.busName_ "org.xmonad.Log")
@@ -418,6 +408,6 @@ main = do
   -- handleEventHook    = handleEventHook def <+> fullscreenEventHook,
 
   -- logHook = dynamicLogWithPP (myLemonbarPP dbus),
-  logHook            = dynamicLogWithPP myLemonbarPP { ppOutput = \x -> hPutStrLn notXMobar x}, 
+  -- logHook            = dynamicLogWithPP myLemonbarPP { ppOutput = \x -> hPutStrLn notXMobar x}, 
   startupHook        = myStartupHook
 } `additionalMouseBindings` myMouseBindings `additionalKeys` myKeys `additionalKeysP` myKeys'
