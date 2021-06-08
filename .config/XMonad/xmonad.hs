@@ -335,21 +335,21 @@ myTabTheme = def { fontName            = myFont
                  }
 
 -- layouts
-myGap = spacingRaw True (Border sGap sGap sGap sGap) True (Border wGap wGap wGap wGap) True
+myGap = spacingRaw False (Border sGap sGap sGap sGap) True (Border wGap wGap wGap wGap) True
 
 myLayoutHook = avoidStruts ( -- layouts to be used in almost every workspace
-        renamed [R.Replace "BSP"]                  (maximize $ smartBorders $ windowNavigation $ myGap $ emptyBSP)
+        renamed [R.Replace "BSP"]                  (maximize $ windowNavigation $ myGap $ emptyBSP)
         ||| renamed [R.Replace "Tabbed"]           (maximize $ smartBorders $ windowNavigation $ myGap $ tabbed shrinkText myTabTheme)
-        ||| renamed [R.Replace "Accordion"]        (maximize $ smartBorders $ windowNavigation $ myGap $ Accordion)
-        ||| renamed [R.Replace "ZoomRow"]          (maximize $ smartBorders $ windowNavigation $ myGap $ zoomRow)
-        ||| renamed [R.Replace "TwoPane"]          (maximize $ smartBorders $ windowNavigation $ myGap $ TwoPane (3/100) (1/2))
-        ||| renamed [R.Replace "ZoomRow Mirrored"] (maximize $ smartBorders $ windowNavigation $ myGap $ Mirror zoomRow)
-        ||| renamed [R.Replace "ThreeCol Mid (1)"] (maximize $ smartBorders $ windowNavigation $ myGap $ ThreeColMid 1 (3/100) (1/2))
-        ||| renamed [R.Replace "ThreeCol Mid (2)"] (maximize $ smartBorders $ windowNavigation $ myGap $ ThreeColMid 2 (3/100) (1/2))
-        ||| renamed [R.Replace "Grid"]             (maximize $ smartBorders $ windowNavigation $ myGap $ Grid)
-        ||| renamed [R.Replace "ThreeCol (1)"]     (maximize $ smartBorders $ windowNavigation $ myGap $ ThreeCol 1 (3/100) (1/2))
-        ||| renamed [R.Replace "Tabbed"]           (maximize $ smartBorders $ windowNavigation $ myGap $ tabbed shrinkText myTabTheme)
-        ||| renamed [R.Replace "ThreeCol (2)"]     (maximize $ smartBorders $ windowNavigation $ myGap $ ThreeCol 2 (3/100) (1/2))
+        ||| renamed [R.Replace "Accordion"]        (maximize $ windowNavigation $ myGap $ Accordion)
+        ||| renamed [R.Replace "ZoomRow"]          (maximize $ windowNavigation $ myGap $ zoomRow)
+        ||| renamed [R.Replace "TwoPane"]          (maximize $ windowNavigation $ myGap $ TwoPane (3/100) (1/2))
+        ||| renamed [R.Replace "ZoomRow Mirrored"] (maximize $ windowNavigation $ myGap $ Mirror zoomRow)
+        ||| renamed [R.Replace "ThreeCol Mid (1)"] (maximize $ windowNavigation $ myGap $ ThreeColMid 1 (3/100) (1/2))
+        ||| renamed [R.Replace "ThreeCol Mid (2)"] (maximize $ windowNavigation $ myGap $ ThreeColMid 2 (3/100) (1/2))
+        ||| renamed [R.Replace "Grid"]             (maximize $ windowNavigation $ myGap $ Grid)
+        ||| renamed [R.Replace "ThreeCol (1)"]     (maximize $ windowNavigation $ myGap $ ThreeCol 1 (3/100) (1/2))
+        ||| renamed [R.Replace "Tabbed"]           (maximize $ windowNavigation $ myGap $ tabbed shrinkText myTabTheme)
+        ||| renamed [R.Replace "ThreeCol (2)"]     (maximize $ windowNavigation $ myGap $ ThreeCol 2 (3/100) (1/2))
         )
 
 main :: IO ()
