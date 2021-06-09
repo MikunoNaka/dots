@@ -206,7 +206,7 @@ type = internal/date
 interval = 5
 
 date =
-date-alt = " %Y-%m-%d"
+date-alt = " %d-%m-%Y"
 
 time = %H:%M
 time-alt = %H:%M:%S
@@ -311,7 +311,7 @@ type = internal/xworkspaces
 
 pin-workspaces = false
 enable-click = true
-enable-scroll = true
+enable-scroll = false
 format = <label-state>
 
 label-monitor = %name%
