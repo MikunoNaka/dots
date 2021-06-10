@@ -92,6 +92,11 @@ myTSConfig = TS.TSConfig { TS.ts_hidechildren = False
 myTreeMenu :: TS.TSConfig (X ()) -> X ()
 myTreeMenu a = TS.treeselectAction a
     [ Node (TS.TSNode         "Section Screenshot" "" (spawn "scrot -s /home/zt/Media/Screenshots/Screenshot-%m-%d-%Y-%T.png")) []
+    , Node (TS.TSNode         "Favourites"         "" (return()))
+        [ Node (TS.TSNode     "VirtualBox"         "" (spawn "virtualbox")) []
+        , Node (TS.TSNode     "Discord"            "" (spawn "discord")) []
+        , Node (TS.TSNode     "pavucintrol"        "" (spawn "pavucontrol")) []
+        ]
     , Node (TS.TSNode         "Accessories"        "" (return()))
         [ Node (TS.TSNode     "Scrcpy"             "" (spawn "scrcpy")) []
         , Node (TS.TSNode     "Pcmanfm"            "" (spawn "pcmanfm")) []
@@ -239,24 +244,24 @@ main = do
     , manageHook         = namedScratchpadManageHook myScratchpads <+> manageDocks
     , startupHook        = myStartupHook
 } `additionalMouseBindings` [ 
-        ((altMask, 2), \w -> kill1)
-        , ((myModMask, 4), \w -> prevWS)
-        , ((myModMask, 5), \w -> nextWS)
-    ] `additionalKeys` myKeys `additionalKeysP` [
-        ("M-i f", runOrCopy "librewolf" (className =? "Firefox"))
-        , ("M-i S-f", spawn "librewolf")
-        , ("M-i b", spawn "brave")
-        , ("M-i S-b", spawn "brave --incognito")
-        -- this doesn't work when in myKeys
-        , ("M-c", spawn myColorPicker)
-        -- Launchers
-        , ("M-p", myTreeMenu myTSConfig)
-        , ("M-S-p", spawn "dmenu_run")
-        -- GridSelect
-        , ("M-g g", goToSelected defaultGSConfig)
-        , ("M-g b", bringSelected defaultGSConfig)
-        -- volume
-        , ("<XF86AudioMute>",        spawn (myVolMute))
-        , ("<XF86AudioLowerVolume>", spawn (myVolDown))
-        , ("<XF86AudioRaiseVolume>", spawn (myVolUp))
-    ]
+      ((altMask, 2), \w -> kill1)
+      , ((myModMask, 4), \w -> prevWS)
+      , ((myModMask, 5), \w -> nextWS)
+  ] `additionalKeys` myKeys `additionalKeysP` [
+      ("M-i f", runOrCopy "librewolf" (className =? "Firefox"))
+      , ("M-i S-f", spawn "librewolf")
+      , ("M-i b", spawn "brave")
+      , ("M-i S-b", spawn "brave --incognito")
+      -- this doesn't work when in myKeys
+      , ("M-c", spawn myColorPicker)
+      -- Launchers
+      , ("M-p", myTreeMenu myTSConfig)
+      , ("M-S-p", spawn "dmenu_run")
+      -- GridSelect
+      , ("M-g g", goToSelected defaultGSConfig)
+      , ("M-g b", bringSelected defaultGSConfig)
+      -- volume
+      , ("<XF86AudioMute>",        spawn (myVolMute))
+      , ("<XF86AudioLowerVolume>", spawn (myVolDown))
+      , ("<XF86AudioRaiseVolume>", spawn (myVolUp))
+  ]
