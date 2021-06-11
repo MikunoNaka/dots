@@ -69,10 +69,8 @@ font-3 = unifont:fontformat=truetype:size=8:antialias=false;0
 font-4 = siji:pixelsize=10;1
 
 modules-left = ewmh xwindow
-;modules-right = pulseaudio xkeyboard memory cpu wlan eth battery temperature date
 modules-right = pulseaudio memory cpu temperature xkeyboard wlan eth date
 
-tray = 1
 tray-position = right
 tray-padding = 2
 tray-background = #0063ff

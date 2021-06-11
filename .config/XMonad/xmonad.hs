@@ -105,7 +105,7 @@ myTreeMenu a = TS.treeselectAction a
         , Node (TS.TSNode     "colorpicker"        "" (spawn "lxappearance")) []
         , Node (TS.TSNode     "networking"         "" (return()))
             [ Node (TS.TSNode "Konqueror"          "" (spawn "konqueror")) []
-            , Node (TS.TSNode "Qbittorrent"        "" (spawn "qbittorrent")) []
+            , Node (TS.TSNode "Transmission"       "" (spawn "transmission-gtk")) []
             , Node (TS.TSNode "Blueman"            "" (spawn "blueman-manager")) []
             ]
         ]
