@@ -119,7 +119,7 @@
 
        use obconf if you want to change these without having to log out
        and back in -->
-    <number>6</number>
+    <number>10</number>
     <firstdesk>1</firstdesk>
     <names>
       <name>一</name>
@@ -128,6 +128,10 @@
       <name>四</name>
       <name>五</name>
       <name>六</name>
+      <name>七</name>
+      <name>八</name>
+      <name>九</name>
+      <name>十</name>
     </names>
     <popupTime>875</popupTime>
     <!-- The number of milliseconds to show the popup for when switching
@@ -288,6 +292,26 @@
     <keybind key="W-6">
       <action name="GoToDesktop">
         <to>6</to>
+      </action>
+    </keybind>
+    <keybind key="W-7">
+      <action name="GoToDesktop">
+        <to>7</to>
+      </action>
+    </keybind>
+    <keybind key="W-8">
+      <action name="GoToDesktop">
+        <to>8</to>
+      </action>
+    </keybind>
+    <keybind key="W-9">
+      <action name="GoToDesktop">
+        <to>9</to>
+      </action>
+    </keybind>
+    <keybind key="W-0">
+      <action name="GoToDesktop">
+        <to>0</to>
       </action>
     </keybind>
     <!-- rethink -->
