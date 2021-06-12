@@ -6,16 +6,10 @@ sysresources=/etc/X11/xinit/.Xresources
 sysmodmap=/etc/X11/xinit/.Xmodmap
 
 # merge in defaults and keymaps
-
 [ -f $sysresources ] && xrdb -merge $sysresources
-
 [ -f $sysmodmap ] && xmodmap $sysmodmap
-
 [ -f "$userresources" ] && xrdb -merge "$userresources"
-
 [ -f "$usermodmap" ] && xmodmap "$usermodmap"
-
-# start some nice programs
 
 if [ -d /etc/X11/xinit/xinitrc.d ] ; then
  for f in /etc/X11/xinit/xinitrc.d/?*.sh ; do
@@ -24,15 +18,13 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
  unset f
 fi
 
+# start some nice programs
 lxsession&
 nitrogen --restore &
 picom &
 dunst &
 cbatticon &
 [[ -f ~/.Xmodmap ]] && xmodmap .Xmodmap
-
-# launch this from wm or it'll crash
-# polybar mybar &
 
 case $1 in 
   xmonad)       exec xmonad ;;
@@ -41,6 +33,7 @@ case $1 in
   bspwm)        exec bspwm ;;
   herbstluftwm) exec herbstluftwm ;;
   spectrwm)     exec spectrwm ;;
+  awesome)      exec awesome ;;
   dwm)          exec dwm ;;
   *)            exec xmonad ;;
 esac

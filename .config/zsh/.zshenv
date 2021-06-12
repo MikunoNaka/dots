@@ -8,6 +8,7 @@ export PAGER="bat"
 
 export PATH=/home/zt/.scripts:$PATH
 export PATH=/home/zt/.local/bin:$PATH
+export PATH=/home/zt/.emacs.d/bin:$PATH
 
 export PATH=/usr/local/bin:$PATH
 
