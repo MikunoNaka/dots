@@ -89,6 +89,57 @@ override-redirect = true
 cursor-click = pointer
 cursor-scroll = ns-resize
 
+
+; same as mybar but with bspwm instead of ewmh module
+[bar/mybar-bspwm]
+;monitor = ${env:MONITOR:HDMI-1}
+width = 100%
+height = 35
+offset-x = 0%
+offset-y = 0%
+radius = 0
+fixed-center = false
+bottom = 0
+
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+line-size = 3
+line-color = #f00
+
+border-size = 0
+border-color = #00000000
+
+padding-left = 0
+padding-right = 2
+
+module-margin-left = 1
+module-margin-right = 2
+
+font-0 = "Sauce Code Pro:size=12"
+font-1 = "Source Han Sans JP Normal:size=12"
+font-2 = fixed:pixelsize=10;1
+font-3 = unifont:fontformat=truetype:size=8:antialias=false;0
+font-4 = siji:pixelsize=10;1
+
+modules-left = bspwm xwindow
+modules-right = pulseaudio memory cpu temperature xkeyboard wlan eth date
+
+tray-position = right
+tray-padding = 2
+tray-background = #0063ff
+
+;wm-restack = bspwm
+;wm-restack = i3
+
+override-redirect = true
+
+scroll-up = bspwm-desknext
+scroll-down = bspwm-deskprev
+
+cursor-click = pointer
+cursor-scroll = ns-resize
+
 [module/xwindow]
 type = internal/xwindow
 label = %title:0:50:...%
@@ -337,3 +388,40 @@ label-urgent-foreground = #000000
 label-urgent-background = #bd2c40
 label-urgent-underline = #9b0a20
 label-urgent-padding = 4
+
+[module/bspwm]
+type = internal/bspwm
+
+; this is exactly the same as ewmh but the type is different
+; somehow ewmh conflicts with lxsession in bspwm
+pin-workspaces = false
+enable-click = true
+enable-scroll = false
+format = <label-state>
+
+label-monitor = %name%
+
+label-active = %name%
+label-active-foreground = ${colors.ws-active-fg}
+label-active-background = ${colors.ws-active-bg}
+label-active-underline = ${colors.ws-active-ul}
+label-active-padding = 2
+
+label-occupied = %name%
+label-occupied-foreground = ${colors.ws-occupied-fg}
+label-occupied-background = ${colors.ws-occupied-bg}
+label-occupied-underline = ${colors.ws-occupied-ul}
+label-occupied-padding = 2
+
+label-empty = %name%
+label-empty-foreground = ${colors.ws-empty-fg}
+label-empty-background = ${colors.ws-empty-bg}
+label-empty-underline = ${colors.ws-empty-ul}
+label-empty-padding = 2
+
+label-urgent = %name%
+label-urgent-foreground = #000000
+label-urgent-background = #bd2c40
+label-urgent-underline = #9b0a20
+label-urgent-padding = 4
+
