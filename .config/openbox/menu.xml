@@ -29,6 +29,25 @@
   </item>
 </menu>
 
+<menu id="my-games" label="Games">
+  <item id="brawlhalla" label="Brawlhalla">
+    <action name="Execute">
+      <command>steam steam://rungameid/291550</command>
+      <startupnotify>
+        <enabled>yes</enabled>
+      </startupnotify>
+    </action>
+  </item>
+  <item id="osu-lazer" label="osu!lazer">
+    <action name="Execute">
+      <command>prime-run osu.AppImage</command>
+      <startupnotify>
+        <enabled>yes</enabled>
+      </startupnotify>
+    </action>
+  </item>
+</menu>
+
 <menu id="my-favourites" label="Favourites">
   <item id="media-player" label="VLC">
     <action name="Execute">
@@ -229,6 +248,7 @@
 
   <separator/>
   <menu id="my-favourites"/>
+  <menu id="my-games"/>
   <menu id="my-accessories"/>
   <menu id="my-media"/>
   <menu id="my-utilities"/>

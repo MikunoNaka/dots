@@ -248,12 +248,20 @@ main = do
       , ((myModMask, 4), \w -> prevWS)
       , ((myModMask, 5), \w -> nextWS)
     ] `additionalKeys` myKeys `additionalKeysP` [
-        ("M-i f", runOrCopy "librewolf" (className =? "Firefox"))
-        , ("M-i S-f", spawn "librewolf")
+        ("M-i l", runOrCopy "librewolf" (className =? "Librewolf"))
+        , ("M-i S-l", spawn "librewolf")
         , ("M-i b", spawn "brave")
         , ("M-i S-b", spawn "brave --incognito")
+        , ("M-i d", spawn "discord")
+        , ("M-i s", spawn "steam")
+        , ("M-i t", spawn "transmission-gtk")
+        , ("M-i k", spawn "konqueror")
+        , ("M-i f", spawn "filezilla")
+        , ("M-i b", spawn "blueman-manager")
+        , ("M-i p", spawn "pavucontrol")
         -- this doesn't work when in myKeys
         , ("M-c", spawn myColorPicker)
+        , ("M-x", spawn "notify_battery_status.sh")
         -- Launchers
         , ("M-p", myTreeMenu myTSConfig)
         , ("M-S-p", spawn "dmenu_run")

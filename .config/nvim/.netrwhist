@@ -1,5 +1,10 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhistcnt =3
+let g:netrw_dirhistcnt =8
+let g:netrw_dirhist_8='/home/zt/Documents/Dev/openbills/src/components'
+let g:netrw_dirhist_7='/home/zt/.scripts'
+let g:netrw_dirhist_6='/home/zt/Documents/Dev/openbills/server/database'
+let g:netrw_dirhist_5='/home/zt/.config/openbox'
+let g:netrw_dirhist_4='/home/zt/Documents/Dev/openbills/server'
 let g:netrw_dirhist_3='/etc/X11/xorg.conf.d'
 let g:netrw_dirhist_2='/zt/Docs/WebDev/react-practise/openbills/src/server/build/static'
 let g:netrw_dirhist_1='/zt/Docs/WebDev/react-practise/openbills/build'
