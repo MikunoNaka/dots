@@ -38,7 +38,6 @@ alias lsa='exa -al'
 alias nf='neofetch'
 alias adbc='adb connect 10.0.0.51:5555'
 alias x='chmod +x'
-alias cat='bat'
 alias rf='rm -rf'
 # git
 alias gs='git status'

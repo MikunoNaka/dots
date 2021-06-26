@@ -18,3 +18,4 @@ export GOPATH="/home/zt/.gopath"
 export QT_QPA_PLATFORMTHEME=gtk2
 export ZDOTDIR="$HOME/.config/zsh"
 
+. "$HOME/.cargo/env"

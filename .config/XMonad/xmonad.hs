@@ -224,13 +224,6 @@ wGap = 10 -- window gap
 myGap = spacingRaw True (Border sGap sGap sGap sGap) True (Border wGap wGap wGap wGap) True
 myGap' = spacingRaw False (Border sGap sGap sGap sGap) True (Border wGap wGap wGap wGap) True
 
-myLayoutHook = avoidStruts $ maximize $ windowNavigation $ (
-        myGap' emptyBSP
-        ||| smartBorders (tabbed shrinkText myTabTheme)
-        ||| smartBorders (myGap emptyBSP)
-        ||| smartBorders (myGap Grid)
-    )
-
 main :: IO ()
 main = do
   xmonad $ ewmh $ docks $ fullscreenSupport def {
@@ -240,7 +233,8 @@ main = do
     , workspaces         = myWorkspaces
     , normalBorderColor  = "#130F23"
     , focusedBorderColor = "#BF00FF"
-    , layoutHook         = myLayoutHook
+    , layoutHook = avoidStruts $ maximize $ windowNavigation $ smartBorders $ myGap $ (
+        emptyBSP ||| tabbed shrinkText myTabTheme ||| emptyBSP ||| Grid)
     , manageHook         = namedScratchpadManageHook myScratchpads <+> manageDocks
     , startupHook        = myStartupHook
 } `additionalMouseBindings` [ 
