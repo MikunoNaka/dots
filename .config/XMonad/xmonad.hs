@@ -52,12 +52,6 @@ myVolMute = "pamixer -m && killall lemonblocks -5"
 myExtraWorkspaces = [(xK_0, "十")] -- , (xK_comma, "  十一  "), (xK_period, "  十二  "), (xK_slash, "  十三  ")]
 myWorkspaces = ["一", "二", "三", "四", "五", "六", "七", "八", "九"] ++ (map snd myExtraWorkspaces)
 
-myStartupHook :: X ()
-myStartupHook = do
-                spawnOnce "polybar mybar"
-                setWMName "LG3D"
-                setDefaultCursor xC_left_ptr
-
 myScratchpads = [
 	 NS "Phone" "scrcpy" (title =? "Motorola One Power") defaultFloating,
 	 NS "Terminal" "prime-run alacritty -t 'TerminalScratchpad'" (title =? "TerminalScratchpad") defaultFloating,
@@ -236,7 +230,10 @@ main = do
     , layoutHook = avoidStruts $ maximize $ windowNavigation $ smartBorders $ myGap $ (
         emptyBSP ||| tabbed shrinkText myTabTheme ||| emptyBSP ||| Grid)
     , manageHook         = namedScratchpadManageHook myScratchpads <+> manageDocks
-    , startupHook        = myStartupHook
+    , startupHook        = do
+        spawnOnce "polybar mybar"
+        setWMName "LG3D"
+        setDefaultCursor xC_left_ptr
 } `additionalMouseBindings` [ 
       ((altMask, 2), \w -> kill1)
       , ((myModMask, 4), \w -> prevWS)
