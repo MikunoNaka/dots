@@ -250,10 +250,18 @@ globalkeys = gears.table.join(
     end),
 
     -- swapping clients with hjkl
-    awful.key({ modkey }, "j", awful.client.swap.bydirection("down")),
-    awful.key({ modkey }, "k", awful.client.swap.bydirection("up")),
-    awful.key({ modkey }, "h", awful.client.swap.bydirection("left")),
-    awful.key({ modkey }, "l", awful.client.swap.bydirection("right")),
+    awful.key({ modkey, "Shift" }, "j", function () awful.client.swap.bydirection("down")
+        if client.focus then client.focus:raise() end
+    end),
+    awful.key({ modkey, "Shift" }, "k", function () awful.client.swap.bydirection("up")
+        if client.focus then client.focus:raise() end
+    end),
+    awful.key({ modkey, "Shift" }, "h", function () awful.client.swap.bydirection("left")
+        if client.focus then client.focus:raise() end
+    end),
+    awful.key({ modkey, "Shift" }, "l", function () awful.client.swap.bydirection("right")
+        if client.focus then client.focus:raise() end
+    end),
 
     awful.key({ not_modkey,           }, "j",
         function ()
