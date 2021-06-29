@@ -235,33 +235,6 @@ globalkeys = gears.table.join(
     awful.key({ modkey,           }, "Escape", awful.tag.history.restore,
               {description = "go back", group = "tag"}),
 
-    -- focusing clients with hjkl
-    awful.key({ modkey }, "j", function () awful.client.focus.bydirection("down")
-        if client.focus then client.focus:raise() end
-    end),
-    awful.key({ modkey }, "k", function () awful.client.focus.bydirection("up")
-        if client.focus then client.focus:raise() end
-    end),
-    awful.key({ modkey }, "h", function () awful.client.focus.bydirection("left")
-        if client.focus then client.focus:raise() end
-    end),
-    awful.key({ modkey }, "l", function () awful.client.focus.bydirection("right")
-        if client.focus then client.focus:raise() end
-    end),
-
-    -- swapping clients with hjkl
-    awful.key({ modkey, "Shift" }, "j", function () awful.client.swap.bydirection("down")
-        if client.focus then client.focus:raise() end
-    end),
-    awful.key({ modkey, "Shift" }, "k", function () awful.client.swap.bydirection("up")
-        if client.focus then client.focus:raise() end
-    end),
-    awful.key({ modkey, "Shift" }, "h", function () awful.client.swap.bydirection("left")
-        if client.focus then client.focus:raise() end
-    end),
-    awful.key({ modkey, "Shift" }, "l", function () awful.client.swap.bydirection("right")
-        if client.focus then client.focus:raise() end
-    end),
 
     awful.key({ not_modkey,           }, "j",
         function ()
@@ -340,6 +313,43 @@ globalkeys = gears.table.join(
 )
 
 clientkeys = gears.table.join(
+    -- focusing clients with hjkl
+    awful.key({ modkey }, "j", function () awful.client.focus.bydirection("down")
+        if client.focus then client.focus:raise() end
+    end),
+    awful.key({ modkey }, "k", function () awful.client.focus.bydirection("up")
+        if client.focus then client.focus:raise() end
+    end),
+    awful.key({ modkey }, "h", function () awful.client.focus.bydirection("left")
+        if client.focus then client.focus:raise() end
+    end),
+    awful.key({ modkey }, "l", function () awful.client.focus.bydirection("right")
+        if client.focus then client.focus:raise() end
+    end),
+
+    -- swapping clients with hjkl
+    awful.key({ modkey, "Shift" }, "j", function () awful.client.swap.bydirection("down")
+        if client.focus then client.focus:raise() end
+    end),
+    awful.key({ modkey, "Shift" }, "k", function () awful.client.swap.bydirection("up")
+        if client.focus then client.focus:raise() end
+    end),
+    awful.key({ modkey, "Shift" }, "h", function () awful.client.swap.bydirection("left")
+        if client.focus then client.focus:raise() end
+    end),
+    awful.key({ modkey, "Shift" }, "l", function () awful.client.swap.bydirection("right")
+        if client.focus then client.focus:raise() end
+    end),
+
+    -- resizing clients with hjkl
+    awful.key({ modkey, "Mod1"    }, "j",     function () awful.client.incwfact( 0.01)  end),
+    awful.key({ modkey, "Mod1"    }, "k",     function () awful.client.incwfact(-0.01)  end),
+    awful.key({ modkey, "Mod1"    }, "h",     function () awful.tag.incmwfact(-0.01)    end),
+    awful.key({ modkey, "Mod1"    }, "l",     function () awful.tag.incmwfact( 0.01)    end),
+
+    awful.key({ modkey, "Shift"   }, "]",   function (c) c:relative_move( 20,  20, -40, -40) end),
+    awful.key({ modkey, "Shift"   }, "[",  function (c) c:relative_move(-20, -20,  40,  40) end),
+
     awful.key({ modkey,           }, "f",
         function (c)
             c.fullscreen = not c.fullscreen
