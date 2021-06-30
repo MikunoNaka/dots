@@ -11,7 +11,8 @@ local themes_path = gfs.get_themes_dir()
 
 local theme = {}
 
-theme.font          = "Source Code Pro:style=Regular"
+-- theme.font          = "Source Han Sans JP:style=Regular:fontsize=6"
+theme.font          = "Source Code Pro Medium:style=Medium"
 
 theme.bg_normal     = "#171520"
 -- theme.bg_focus      = "#130F23"
@@ -20,16 +21,26 @@ theme.bg_urgent     = "#ff0000"
 theme.bg_minimize   = "#444444"
 theme.bg_systray    = theme.bg_normal
 
-theme.fg_normal     = "#02FC45"
+theme.fg_normal     = "#FFFFFF"
 theme.fg_focus      = "#FFFFFF"
 theme.fg_urgent     = "#ffffff"
 theme.fg_minimize   = "#ffffff"
 
-theme.useless_gap   = dpi(4)
+theme.useless_gap   = dpi(6)
 theme.border_width  = dpi(2)
 theme.border_normal = "#130F23"
 theme.border_focus  = "#BF00FF"
-theme.border_marked = "#02FC45"
+theme.border_marked = "#5b76b7"
+
+theme.taglist_bg_focus = "#D33682"
+theme.taglist_bg_occupied = "#130F23"
+theme.taglist_bg_empty = "#171520"
+-- theme.taglist_bg_urgent = "#FF0000"
+
+theme.taglist_fg_focus = "#FFFFFF"
+theme.taglist_fg_occupied = "#268BD2"
+theme.taglist_fg_empty = "#02FC45"
+-- theme.taglist_fg_urgent = "#FF0000"
 
 -- There are other variable sets
 -- overriding the default one when
