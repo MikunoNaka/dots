@@ -121,7 +121,33 @@ myTreeMenu a = TS.treeselectAction a
         ]
     ]
 
-myKeys = [
+sGap = 4 -- screen gap
+wGap = 10 -- window gap
+
+myGap = spacingRaw True (Border sGap sGap sGap sGap) True (Border wGap wGap wGap wGap) True
+myGap' = spacingRaw False (Border sGap sGap sGap sGap) True (Border wGap wGap wGap wGap) True
+
+main :: IO ()
+main = do
+  xmonad $ ewmh $ docks $ fullscreenSupport def {
+    focusFollowsMouse  = True
+    , borderWidth        = 2
+    , modMask            = myModMask
+    , workspaces         = myWorkspaces
+    , normalBorderColor  = "#130F23"
+    , focusedBorderColor = "#BF00FF"
+    , layoutHook = avoidStruts $ maximize $ windowNavigation $ smartBorders $ myGap $ (
+        emptyBSP ||| tabbed shrinkText myTabTheme ||| emptyBSP ||| Grid)
+    , manageHook         = namedScratchpadManageHook myScratchpads <+> manageDocks
+    , startupHook        = do
+        spawnOnce "polybar mybar"
+        setWMName "LG3D"
+        setDefaultCursor xC_left_ptr
+} `additionalMouseBindings` [ 
+      ((altMask, 2), \w -> kill1)
+      , ((myModMask, 4), \w -> prevWS)
+      , ((myModMask, 5), \w -> nextWS)
+    ] `additionalKeys` ([
     ((myModMask, xK_Return), spawn ("prime-run alacritty"))
     , ((0, xK_Print), spawn (myScreenshot))
     , ((myModMask .|. shiftMask, xK_Return), spawn (myScreenshot))
@@ -157,11 +183,29 @@ myKeys = [
     -- view prev/next workspaces
     , ((altMask, xK_h), prevWS)
     , ((altMask, xK_l), nextWS)
+    -- do the same without the evil alt key (might remove either pair later)
+    , ((myModMask, xK_comma),  prevWS)
+    , ((myModMask, xK_period), nextWS)
     
     -- move to prev/next workspaces
     , ((altMask .|. shiftMask, xK_h), shiftToPrev >> prevWS)
     , ((altMask .|. shiftMask, xK_l), shiftToNext >> nextWS)
-    
+    -- do the same without the evil alt key (might remove either pair later)
+    , ((myModMask .|. shiftMask, xK_comma),  shiftToPrev >> prevWS)
+    , ((myModMask .|. shiftMask, xK_period), shiftToNext >> nextWS)
+
+    -- focus previous.next monitor
+    , ((myModMask,               xK_bracketleft),   prevScreen)
+    , ((myModMask,               xK_bracketright),  nextScreen)
+
+    -- move window to previous/next monitor
+    , ((myModMask .|. shiftMask, xK_bracketleft),   shiftPrevScreen >> prevScreen)
+    , ((myModMask .|. shiftMask, xK_bracketright),  shiftNextScreen >> nextScreen)
+
+    -- swap different screens
+    , ((myModMask .|. controlMask, xK_bracketleft),  swapPrevScreen)
+    , ((myModMask .|. controlMask, xK_bracketright), swapNextScreen)
+
     , ((myModMask, xK_backslash), sendMessage ToggleStruts) -- toggle both bars
     , ((myModMask, xK_f), withFocused (sendMessage . maximizeRestore)) -- toggle maximize
 
@@ -210,35 +254,16 @@ myKeys = [
     ] ++ [ -- sticky-ing windows
         ((myModMask, xK_v), windows copyToAll)  -- make window visible on all screens
         , ((myModMask .|. shiftMask, xK_v), killAllOtherCopies)
-    ]
-
-sGap = 4 -- screen gap
-wGap = 10 -- window gap
-
-myGap = spacingRaw True (Border sGap sGap sGap sGap) True (Border wGap wGap wGap wGap) True
-myGap' = spacingRaw False (Border sGap sGap sGap sGap) True (Border wGap wGap wGap wGap) True
-
-main :: IO ()
-main = do
-  xmonad $ ewmh $ docks $ fullscreenSupport def {
-    focusFollowsMouse  = True
-    , borderWidth        = 2
-    , modMask            = myModMask
-    , workspaces         = myWorkspaces
-    , normalBorderColor  = "#130F23"
-    , focusedBorderColor = "#BF00FF"
-    , layoutHook = avoidStruts $ maximize $ windowNavigation $ smartBorders $ myGap $ (
-        emptyBSP ||| tabbed shrinkText myTabTheme ||| emptyBSP ||| Grid)
-    , manageHook         = namedScratchpadManageHook myScratchpads <+> manageDocks
-    , startupHook        = do
-        spawnOnce "polybar mybar"
-        setWMName "LG3D"
-        setDefaultCursor xC_left_ptr
-} `additionalMouseBindings` [ 
-      ((altMask, 2), \w -> kill1)
-      , ((myModMask, 4), \w -> prevWS)
-      , ((myModMask, 5), \w -> nextWS)
-    ] `additionalKeys` myKeys `additionalKeysP` [
+    ] ++ [ -- for not swapping tags while using multihead
+        ((m .|. myModMask, k), windows $ f i) 
+        | (i, k) <- zip myWorkspaces [xK_1 .. xK_9]
+        , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]
+    ] -- ++ [ -- focus different monitors
+--         ((m .|. myModMask, key), screenWorkspace sc >>= flip whenJust (windows . f))
+--         | (key, sc) <- zip [xK_bracketleft, xK_bracketright] [1,0] -- was [0..] *** change to match your screen order ***
+--         , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]
+--     ]
+    ) `additionalKeysP` [
         ("M-i l", runOrCopy "librewolf" (className =? "Librewolf"))
         , ("M-i S-l", spawn "librewolf")
         , ("M-i b", spawn "brave")
