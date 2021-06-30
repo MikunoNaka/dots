@@ -247,13 +247,32 @@ local my_i_keys = {
     { "p", function() awful.spawn.with_shell("pavucontrol")      end, "Pavucontrol"  },
     { "v", function() awful.spawn.with_shell("virtualbox")       end, "VirtualBox"   },
     { "c", function() awful.spawn.with_shell("scrcpy")           end, "scrcpy"       },
-    { "v", function() awful.spawn.with_shell("vlc")              end, "VLC"          }
+    { "e", function() awful.spawn.with_shell("thunderbird")      end, "Thunderbird"  }
 }
 
+local media_apps = {
+    { "g", function() awful.spawn.with_shell("gimp")     end, "GIMP"     },
+    { "o", function() awful.spawn.with_shell("obs")      end, "OBS"      },
+    { "v", function() awful.spawn.with_shell("vlc")      end, "VLC"      },
+    { "k", function() awful.spawn.with_shell("kdenlive") end, "Kdenlive" },
+    { "i", function() awful.spawn.with_shell("inkscape") end, "Inkscape" }
+}
+
+mykeys = gears.table.join(
+    awful.key({ modkey }, "i", function() modalbind.grab{keymap=my_i_keys, name="Apps", stay_in_mode=false} end,
+              {description="My Apps", groups="My Keys"}),
+    awful.key({ modkey }, "m", function() modalbind.grab{keymap=media_apps, name="Media", stay_in_mode=false} end,
+              {description="Media Apps", groups="My Keys"}),
+    awful.key({ modkey }, "o", function() awful.spawn.with_shell("pcmanfm") end,
+              {description="pcmanfm", group="My Keys"}),
+    awful.key({ modkey }, "y", function() awful.spawn.with_shell("gimp") end,
+              {description="GIMP", group="My Keys"}),
+    awful.key({ modkey }, "m", function() awful.spawn.with_shell("vlc") end,
+              {description="VLC", group="My Keys"})
+)
 
 globalkeys = gears.table.join(
-    awful.key({ modkey }, "i", function() modalbind.grab{keymap=my_i_keys, name="Apps", stay_in_mode=false} end),
-
+    mykeys,
     awful.key({ modkey,           }, "F1",      hotkeys_popup.show_help,
               {description="show help", group="awesome"}),
     awful.key({ not_modkey,           }, "h",   awful.tag.viewprev,
@@ -409,6 +428,8 @@ clientkeys = gears.table.join(
               {description = "toggle floating", group = "client"}),
 
     awful.key({ modkey, "Shift"   }, "c",      function (c) c:kill()                         end,
+              {description = "close", group = "client"}),
+    awful.key({ not_modkey }, "w",      function (c) c:kill()                                end,
               {description = "close", group = "client"}),
 
     awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end,
