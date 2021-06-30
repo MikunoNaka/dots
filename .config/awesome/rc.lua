@@ -18,6 +18,10 @@ local hotkeys_popup = require("awful.hotkeys_popup")
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
 
+-- treetile layout from http://github.com/guotsuan/treetile
+local treetile = require("treetile")
+treetile.focusnew = true
+
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
@@ -58,6 +62,7 @@ not_modkey = "Mod1"
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
+    treetile,
     awful.layout.suit.tile,
     awful.layout.suit.tile.left,
     awful.layout.suit.tile.bottom,
@@ -341,11 +346,31 @@ clientkeys = gears.table.join(
         if client.focus then client.focus:raise() end
     end),
 
+    -- resizing in treetile layout
+    -- awful.key({ modkey, not_modkey   }, "h", function ()
+    --     local c = client.focus
+    --     if awful.layout.get(c.screen).name ~= "treetile" then
+    --         awful.client.moveresize(-20,0,0,0)
+    --     else
+    --         treetile.resize_client(-0.1)
+    --         -- increase or decrease by percentage of current width or height,
+    --         -- the value can be from 0.01 to 0.99, negative or postive
+    --     end
+    --     end),
+    -- awful.key({ modkey, not_modkey   }, "l", function ()
+    --     local c = client.focus
+    --     if awful.layout.get(c.screen).name ~= "treetile" then
+    --         awful.client.moveresize(20,0,0,0)
+    --     else
+    --         treetile.resize_client(0.1)
+    --     end
+    --     end),
+
     -- resizing clients with hjkl
     awful.key({ modkey, "Mod1"    }, "j",     function () awful.client.incwfact( 0.01)  end),
     awful.key({ modkey, "Mod1"    }, "k",     function () awful.client.incwfact(-0.01)  end),
-    awful.key({ modkey, "Mod1"    }, "h",     function () awful.tag.incmwfact(-0.01)    end),
-    awful.key({ modkey, "Mod1"    }, "l",     function () awful.tag.incmwfact( 0.01)    end),
+    -- awful.key({ modkey, "Mod1"    }, "h",     function () awful.tag.incmwfact(-0.01)    end),
+    -- awful.key({ modkey, "Mod1"    }, "l",     function () awful.tag.incmwfact( 0.01)    end),
 
     awful.key({ modkey, "Shift"   }, "]",   function (c) c:relative_move( 20,  20, -40, -40) end),
     awful.key({ modkey, "Shift"   }, "[",  function (c) c:relative_move(-20, -20,  40,  40) end),
