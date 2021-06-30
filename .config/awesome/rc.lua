@@ -22,6 +22,10 @@ require("awful.hotkeys_popup.keys")
 local treetile = require("treetile")
 treetile.focusnew = true
 
+-- basically emacs-style keybindings from https://github.com/crater2150/awesome-modalbind
+local modalbind = require("modalbind")
+modalbind.init()
+
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
@@ -230,7 +234,26 @@ root.buttons(gears.table.join(
 -- }}}
 
 -- {{{ Key bindings
+
+local my_i_keys = {
+    { "l", function() awful.spawn.with_shell("librewolf")        end, "Librewolf"    },
+    { "b", function() awful.spawn.with_shell("brave")            end, "Brave"        },
+    { "d", function() awful.spawn.with_shell("discord")          end, "Discord"      },
+    { "s", function() awful.spawn.with_shell("steam")            end, "Steam"        },
+    { "t", function() awful.spawn.with_shell("transmission-gtk") end, "Transmission" },
+    { "k", function() awful.spawn.with_shell("konqueror")        end, "Konqueror"    },
+    { "f", function() awful.spawn.with_shell("filezilla")        end, "Filezilla"    },
+    { "n", function() awful.spawn.with_shell("blueman-manager")  end, "Blueman"      },
+    { "p", function() awful.spawn.with_shell("pavucontrol")      end, "Pavucontrol"  },
+    { "v", function() awful.spawn.with_shell("virtualbox")       end, "VirtualBox"   },
+    { "c", function() awful.spawn.with_shell("scrcpy")           end, "scrcpy"       },
+    { "v", function() awful.spawn.with_shell("vlc")              end, "VLC"          }
+}
+
+
 globalkeys = gears.table.join(
+    awful.key({ modkey }, "i", function() modalbind.grab{keymap=my_i_keys, name="Apps", stay_in_mode=false} end),
+
     awful.key({ modkey,           }, "F1",      hotkeys_popup.show_help,
               {description="show help", group="awesome"}),
     awful.key({ not_modkey,           }, "h",   awful.tag.viewprev,
