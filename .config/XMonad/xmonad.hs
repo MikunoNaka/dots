@@ -246,17 +246,17 @@ main = do
         | (key,ws) <- myExtraWorkspaces
     ] ++ [ -- to swap workspaces
         ((mod1Mask .|. shiftMask, k), windows $ swapWithCurrent i)
-        | (i, k) <- zip myWorkspaces [xK_1 ..]
+        | (i, k) <- zip myWorkspaces [xK_1, xK_2, xK_3, xK_4, xK_5, xK_6, xK_7, xK_8, xK_9, xK_0]
     ] ++ [ -- copy
         ((m .|. myModMask, k), windows $ f i)
-        | (i, k) <- zip (myWorkspaces) [xK_1 ..]
+        | (i, k) <- zip (myWorkspaces) [xK_1, xK_2, xK_3, xK_4, xK_5, xK_6, xK_7, xK_8, xK_9, xK_0]
         , (f, m) <- [(copy, shiftMask .|. altMask)]
     ] ++ [ -- sticky-ing windows
         ((myModMask, xK_v), windows copyToAll)  -- make window visible on all screens
         , ((myModMask .|. shiftMask, xK_v), killAllOtherCopies)
     ] ++ [ -- for not swapping tags while using multihead
         ((m .|. myModMask, k), windows $ f i) 
-        | (i, k) <- zip myWorkspaces [xK_1 .. xK_9]
+        | (i, k) <- zip myWorkspaces [xK_1, xK_2, xK_3, xK_4, xK_5, xK_6, xK_7, xK_8, xK_9, xK_0]
         , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]
     ] -- ++ [ -- focus different monitors
 --         ((m .|. myModMask, key), screenWorkspace sc >>= flip whenJust (windows . f))
