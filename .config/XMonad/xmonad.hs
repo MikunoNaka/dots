@@ -273,8 +273,10 @@ main = do
         , ("M-i t", spawn "transmission-gtk")
         , ("M-i k", spawn "konqueror")
         , ("M-i f", spawn "filezilla")
-        , ("M-i b", spawn "blueman-manager")
+        , ("M-i n", spawn "blueman-manager")
         , ("M-i p", spawn "pavucontrol")
+        , ("M-i a", spawn "arandr")
+        , ("M-i v", spawn "alacritty -e bpytop")
         -- this doesn't work when in myKeys
         , ("M-c", spawn myColorPicker)
         , ("M-x", spawn "notify_battery_status.sh")
